@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #033f2e;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #033f2e;
+    --foreground: #ededed;
+  }
+}
+
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@theme {
+  /* =========================
+   * COLORS
+   * ========================= */
+  --color-error: #e71010;
+  --color-brand-even-lighter: #c5e2e7;
+  --color-brand-lightest: #188d87;
+  --color-brand-lighter: #0e403d;
+  --color-brand-base: #0b3330;
+  --color-brand-dark: #082a28;
+  --color-brand-darkest: #051d1b;
+  --color-brand-highlight: #c58210;
+  --color-purple: #540142;
+
+   /* =========================
+   * FONTS
+   * ========================= */
+  --font-monteserrat: "Montserrat", sans-serif;
+  --font-bungee: "Bungee", sans-serif;
+  --font-monoton: "Monoton", cursive;
+}
+
+
+/* Container to center the ball */
+.disco-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px; /* Adjust as needed */
+}
+
+/* Disco ball element */
+.disco-ball {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #f0f0f0 15%, #c0c0c0 75%);
+  position: relative;
+  animation: spin 4s linear infinite;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6),
+              0 0 30px rgba(255, 255, 255, 0.4),
+              0 0 45px rgba(255, 255, 255, 0.2);
+}
