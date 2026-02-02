@@ -1,12 +1,17 @@
 "use client";
+import { prisma } from "@/src/lib/prisma"
 
+export default async function Home() {
+  const events = await prisma.event.findMany({
+    where: { approved: true },
+    orderBy: { date: "asc" },
+  });
 
-export default function Home() {
   return (
     <div className="flex h-screen font-sans">
 
       {/* Left side */}
- <section className="flex-1 bg-emerald-900 text-white relative p-12 flex flex-col">
+ <section className="flex-1 col-span-1 bg-emerald-900 text-white relative p-12 flex flex-col">
 
 <div
   aria-hidden="true"
@@ -67,7 +72,7 @@ export default function Home() {
 
       {/* Right side */}
       
-      <section className="flex-1 bg-orange-400 relative pl-40 p-12 overflow-hidden">
+      <section className="flex-1 col-span-1 bg-orange-400 relative pl-40 p-12 overflow-hidden">
 
 
         {/* Large Eye Sticker */}
@@ -89,6 +94,20 @@ export default function Home() {
        
 
       </section>
+      <div className="">
+        <h1 className="text-3xl text-black font-bold mb-6">Approved Events</h1>
+
+      <ul className="space-y-4">
+        {events.length === 0 && <li>No events approved yet.</li>}
+        {events.map((event) => (
+          <li key={event.id} className="border p-4 rounded shadow-sm">
+            <h3 className="text-xl font-bold">{event.eventName}</h3>
+            <p>{event.description}</p>
+            <p className="text-gray-500 text-sm">{event.date.toDateString()}</p>
+          </li>
+        ))}
+      </ul>
+      </div>
 
     </div>
   );
