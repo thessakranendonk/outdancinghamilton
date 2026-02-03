@@ -1,113 +1,169 @@
+// import { prisma } from "@/src/lib/prisma";
+// import DashboardEventList from "@/src/components/ui/DashboardEventList";
+// import { revalidatePath } from "next/cache";
+// import { EventStatus } from "@prisma/client";
+// import { useState } from "react";
+// import EditEventModal from "@/src/components/ui/EditEventModal";
+
+// // Server actions
+// async function approveEvent(data: FormData) {
+//   "use server";
+//   const id = Number(data.get("id"));
+//   if (!id) return;
+
+//   await prisma.event.update({
+//     where: { id },
+//     data: { status: EventStatus.APPROVED },
+//   });
+
+//   revalidatePath("/admin/dashboard");
+// }
+
+// async function rejectEvent(data: FormData) {
+//   "use server";
+//   const id = Number(data.get("id"));
+//   if (!id) return;
+
+//   await prisma.event.update({
+//     where: { id },
+//     data: { status: EventStatus.REJECTED },
+//   });
+
+//   revalidatePath("/admin/dashboard");
+// }
+
+
+// export async function updateEvent(data: FormData) {
+//   "use server";
+
+//   const id = Number(data.get("id"));
+//   if (!id) return;
+
+//   const updatedEvent = {
+//     eventName: String(data.get("eventName")),
+//     description: String(data.get("description")),
+//     location: String(data.get("location")),
+//     date: new Date(String(data.get("date"))),
+//     price: String(data.get("price")),
+//     status: data.get("status") as EventStatus,
+//   };
+
+//   await prisma.event.update({
+//     where: { id },
+//     data: updatedEvent,
+//   });
+
+//   // Revalidate the dashboard page
+//   revalidatePath("/admin/dashboard");
+// }
+
+// // Props type
+// interface AdminDashboardProps {
+//   searchParams?: Record<string, string> | Promise<Record<string, string>>;
+// }
+
+// // Component
+// export default async function AdminDashboard({ searchParams }: AdminDashboardProps) {
+//   // Unwrap searchParams if it is a Promise
+//   const params = searchParams instanceof Promise ? await searchParams : searchParams ?? {};
+
+//   // Modal events
+//   const [editingEvent, setEditingEvent] = useState<typeof events[0] | null>(null);
+
+//   const openEditModal = (event: typeof events[0]) => setEditingEvent(event);
+//   const closeEditModal = () => setEditingEvent(null);
+
+//   // Determine current status
+//   const rawStatus = typeof params.status === "string" ? params.status : "PENDING";
+
+//   const status: EventStatus =
+//     ["PENDING", "APPROVED", "REJECTED"].includes(rawStatus)
+//       ? (rawStatus as EventStatus)
+//       : EventStatus.PENDING;
+
+//   // Fetch events from Prisma
+//   const events = await prisma.event.findMany({
+//     where: { status },
+//     orderBy: { date: "asc" },
+//   });
+
+//   // Map string to enum
+//   const statusMap: Record<string, EventStatus> = {
+//     PENDING: EventStatus.PENDING,
+//     APPROVED: EventStatus.APPROVED,
+//     REJECTED: EventStatus.REJECTED,
+//   };
+
+//   return (
+//     <main className="p-8 max-w-3xl mx-auto space-y-8">
+//       <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+
+//       {/* Status buttons as GET form */}
+//       <form method="get" className="flex space-x-2 mb-4">
+//         {["PENDING", "APPROVED", "REJECTED"].map((s) => (
+//           <button
+//             key={s}
+//             type="submit"
+//             name="status"
+//             value={s}
+//             className={`px-4 py-2 rounded ${
+//               status === statusMap[s] ? "bg-blue-500 text-white" : "bg-gray-200"
+//             }`}
+//           >
+//             {s.charAt(0) + s.slice(1).toLowerCase()}
+//           </button>
+//         ))}
+//       </form>
+
+//       {/* Event list */}
+//       <DashboardEventList
+//         events={events}
+//         heading={`Events: ${status.charAt(0) + status.slice(1).toLowerCase()}`}
+//         approveAction={approveEvent}
+//         rejectAction={rejectEvent}
+//         openEditModal={openEditModal}
+//       />
+//        {/* Modal */}
+//       {editingEvent && (
+//         <EditEventModal event={editingEvent} onClose={closeEditModal} />
+//       )}
+//     </main>
+//   );
+// }
+
+
+// app/admin/dashboard/page.tsx
 import { prisma } from "@/src/lib/prisma";
-import SubmitEventForm from "@/src/components/ui/SubmitEventForm"
-import fs from "fs";
-import path from "path";
+import { EventStatus } from "@prisma/client";
+import DashboardEventListWithModal from "@/src/components/ui/DashboardEventListWithModal";
+import SubmitEventForm from "@/src/components/ui/SubmitEventForm";
+import { submitEvent } from "./server-actions";
 
-async function approveEvent(data: FormData) {
-  "use server";
-  const idStr = data.get("id")?.toString();
-  if (!idStr) return;
-  const id = parseInt(idStr, 10);
-  if (isNaN(id)) return;
-
-  await prisma.event.update({
-    where: { id },
-    data: { approved: true },
-  });
+interface AdminDashboardProps {
+  searchParams?: Record<string, string> | Promise<Record<string, string>>;
 }
 
-async function addEvent(data: FormData) {
-  "use server";
+export default async function AdminDashboard({ searchParams }: AdminDashboardProps) {
+  // Unwrap searchParams if it is a Promise
+  const params = searchParams instanceof Promise ? await searchParams : searchParams ?? {};
 
-   const eventName = data.get("eventName")?.toString();
-    const location = data.get("location")?.toString();
-    const price = data.get("price")?.toString();
-    const age = data.get("age")?.toString();
-    const email = data.get("email")?.toString();
-    const createdAt = new Date();
-  const description = data.get("description")?.toString();
-  const dateStr = data.get("date")?.toString();
-  const imgFile = data.get("image") as File;
+  // Determine current status filter
+  const rawStatus = typeof params.status === "string" ? params.status : "PENDING";
+  const status: EventStatus =
+    ["PENDING", "APPROVED", "REJECTED"].includes(rawStatus)
+      ? (rawStatus as EventStatus)
+      : EventStatus.PENDING;
 
-  if ( !eventName || !location || !price || !age || !email || !description || !dateStr) return;
-
-  const date = new Date(dateStr);
-
-  let imgUrl: string | null = null;
-
-  if (imgFile && imgFile.size > 0) {
-    // save to /public/uploads
-    const uploadsDir = path.join(process.cwd(), "public/uploads");
-    if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir);
-
-    const filePath = path.join(uploadsDir, imgFile.name);
-    const buffer = Buffer.from(await imgFile.arrayBuffer());
-    fs.writeFileSync(filePath, buffer);
-
-    imgUrl = `/uploads/${imgFile.name}`;
-  }
-
-  await prisma.event.create({
-    data: {
-        eventName,      
-        location,        
-        price,      
-        age,      
-        createdAt,
-        description,
-        email,
-        date,
-        approved: false,
-        imgUrl: imgUrl || null,
-    },
-  });
-
-}
-
-
-export default async function AdminDashboard() {
-  const pendingEvents = await prisma.event.findMany({
-    where: { approved: false },
+  // Fetch events from Prisma
+  const events = await prisma.event.findMany({
+    where: { status },
     orderBy: { date: "asc" },
   });
 
   return (
-    <main className="p-8 max-w-3xl mx-auto space-y-8">
-      <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-
-      {/* Section 1: Approve pending events */}
-      <section className="border p-4 rounded space-y-4">
-        <h2 className="text-xl font-semibold mb-2">Pending Events</h2>
-        {pendingEvents.length === 0 && <p>No pending events.</p>}
-        <ul className="space-y-2">
-          {pendingEvents.map((event) => (
-            <li
-              key={event.id}
-              className="border p-2 rounded flex justify-between items-center"
-            >
-              <div>
-                <p className="font-bold">{event.eventName}</p>
-                <p className="text-sm">{event.location}</p>
-                <p className="text-sm">{event.description}</p>
-                <p className="text-gray-500 text-sm">{event.date.toDateString()}</p>
-              </div>
-              <form action={approveEvent}>
-                <input type="hidden" name="id" value={event.id} />
-                <button className="bg-green-500 text-white px-3 py-1 rounded">
-                  Approve
-                </button>
-              </form>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* Section 2: Manually add new event */}
-      <section className="border p-4 rounded space-y-4">
-        <h2 className="text-xl font-semibold">Add New Event</h2>
-        <SubmitEventForm serverAction={addEvent} />
-      </section>
-     
-    </main>
+    <div>
+    <DashboardEventListWithModal events={events} statusFilter={status} />
+    <SubmitEventForm serverAction={submitEvent} />
+    </div>
   );
 }

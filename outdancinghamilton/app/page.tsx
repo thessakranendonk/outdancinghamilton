@@ -1,19 +1,20 @@
-"use client";
-import { prisma } from "@/src/lib/prisma"
+import { EventStatus, prisma } from "@/src/lib/prisma"
 
 export default async function Home() {
   const events = await prisma.event.findMany({
-    where: { approved: true },
+    where: { status: EventStatus.APPROVED },
     orderBy: { date: "asc" },
   });
+console.log(events)
 
   return (
-    <div className="flex h-screen font-sans">
+    <div className="flex flex-col min-h-screen font-sans">
 
       {/* Left side */}
- <section className="flex-1 col-span-1 bg-emerald-900 text-white relative p-12 flex flex-col">
+<div className="flex flex-row">
+ <div className="flex-1 relative p-12 flex flex-col">
 
-<div
+  <div
   aria-hidden="true"
   className="pointer-events-none absolute left-0 top-0 h-1/2 w-12 z-10"
   style={{
@@ -28,25 +29,9 @@ export default async function Home() {
   }}
 />
 
-
-
-
-        {/* Logo and nav */}
-        {/* <div className="mb-12">
-          <div className="flex items-center mb-6">
-            <div className="w-8 h-8 rounded-full bg-yellow-400 mr-3"></div>
-            <span className="font-semibold text-lg select-none">RetroCompany.</span>
-          </div>
-          <nav className="flex space-x-8 text-sm font-medium opacity-80">
-            <a href="#" className="hover:opacity-100 transition-opacity">Home</a>
-            <a href="#" className="hover:opacity-100 transition-opacity">Profile</a>
-            <a href="#" className="hover:opacity-100 transition-opacity">About</a>
-            <a href="#" className="hover:opacity-100 transition-opacity">Explore</a>
-          </nav>
-        </div> */}
-
-        {/* Main heading and paragraph */}
+        {/* Top */}
         <div className="pl-10">
+          {/* Left side */}
         <h1 className="text-6xl font-medium mb-6 tracking-tight leading-tight max-w-lg font-monoton mt-20">
           Out Dancing <br />
           <span className="text-pink-400">Hamilton</span>
@@ -55,35 +40,15 @@ export default async function Home() {
           <b>Out Dancing Hamilton</b> brings together Hamilton’s dance community, celebrating movement, connection, and fun. Dancing keeps you healthy, lifts your mood, and builds the sense of community we all crave.
         </p>
 
-        {/* Button */}
-        {/* <button className="inline-flex items-center bg-black text-white px-6 py-3 font-semibold rounded hover:bg-gray-900 transition">
-          Sign Up
-          <svg xmlns="http://www.w3.org/2000/svg" className="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
-        </button> */}
-
-        {/* Social icons */}
         <div className="flex space-x-6 mt-auto text-gray-400 text-xl opacity-70">
           <a href="#" aria-label="Instagram" className="hover:text-white transition">In</a>
         </div>   
         </div>     
-      </section>
+      </div>
 
       {/* Right side */}
       
-      <section className="flex-1 col-span-1 bg-orange-400 relative pl-40 p-12 overflow-hidden">
-
-
-        {/* Large Eye Sticker */}
-        {/* <div className="absolute top-20 right-20 w-48 h-48 rounded-full bg-red-600 flex items-center justify-center text-white font-bold text-lg rotate-6 shadow-lg select-none">
-          <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center">
-            <div className="w-12 h-12 bg-red-600 rounded-full"></div>
-          </div>
-          <span className="absolute top-3 left-4 text-sm font-semibold tracking-wide select-none">All Eyes On You</span>
-        </div> */}
-
-        {/* Other Stickers */}
+      <div className="flex-1 bg-orange-400 relative pl-40 p-12 overflow-hidden">
 
         <div className="absolute top-10 left-14 bg-yellow-400 px-4 py-2 rounded-lg shadow-md rotate-350 text-3xl  font-semibold text-red-700 select-none">
           Upcoming Events
@@ -91,19 +56,33 @@ export default async function Home() {
           <span className="text-red-500 text-sm italic"></span>
         </div>
 
-       
+       </div>
 
-      </section>
-      <div className="">
-        <h1 className="text-3xl text-black font-bold mb-6">Approved Events</h1>
+      </div>
 
-      <ul className="space-y-4">
-        {events.length === 0 && <li>No events approved yet.</li>}
+      {/* Events */}
+      <div className="lg:w-5xl flex flex-col mx-auto justify-center bg-white mt-35">
+        <h1 className="w-full text-5xl text-black font-bold mb-6 bg-brand-base text-orange-400 text-center font-[Bungee] pb-20">Upcoming Events</h1>
+
+      <ul className="w-full space-y-4">
+        {events.length === 0 && <li>No events yet.</li>}
         {events.map((event) => (
           <li key={event.id} className="border p-4 rounded shadow-sm">
+            {/* <div
+            className={clsx("w-[300px] h-54 bg-cover bg-center")}
+            style={{ backgroundImage: `url(${event.imgUrl})` }}
+            /> */}
+
             <h3 className="text-xl font-bold">{event.eventName}</h3>
             <p>{event.description}</p>
             <p className="text-gray-500 text-sm">{event.date.toDateString()}</p>
+            {event.imgUrl && (
+              <img
+                src={event.imgUrl}
+                alt={event.eventName}
+                className="w-65 h-120 object-cover rounded w-full"
+                />
+            )}
           </li>
         ))}
       </ul>
