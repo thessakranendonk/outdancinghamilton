@@ -41,6 +41,7 @@ export async function updateEvent(data: FormData) {
     location: String(data.get("location")),
     date: new Date(String(data.get("date"))),
     price: String(data.get("price")),
+    age: String(data.get("age")),
     status: data.get("status") as EventStatus,
   };
 
@@ -51,6 +52,18 @@ export async function updateEvent(data: FormData) {
 
   revalidatePath("/admin/dashboard");
   return updatedEvent;
+}
+
+// Delete Event
+export async function deleteEvent(data: FormData) {
+  const id = Number(data.get("id"));
+  if (!id) return;
+
+  await prisma.event.delete({
+    where: { id },
+  });
+
+  revalidatePath("/admin/dashboard");
 }
 
 // Submit Event

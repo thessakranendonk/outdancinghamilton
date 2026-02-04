@@ -4,7 +4,8 @@ import DashboardEventList from "./DashboardEventList";
 import EditEventModal from "./EditEventModal";
 import { Event } from "@prisma/client";
 import { EventStatus } from "@prisma/client";
-import { approveEvent, rejectEvent, updateEvent } from "@/app/admin/dashboard/server-actions";
+import { approveEvent, deleteEvent, rejectEvent, updateEvent } from "@/app/admin/dashboard/server-actions";
+import DeleteModal from "./DeleteModal";
 
 interface Props {
   events: Event[];
@@ -13,10 +14,15 @@ interface Props {
 
 export default function DashboardEventListWithModal({ events, statusFilter }: Props) {
   const [editingEvent, setEditingEvent] = useState<Event | null>(null);
+  const [deletingEvent, setDeletingEvent] = useState<Event | null>(null);
+
   const [isPending, startTransition] = useTransition();
 
   const openEditModal = (event: Event) => setEditingEvent(event);
   const closeEditModal = () => setEditingEvent(null);
+
+  const openDeleteModal = (event: Event) => setDeletingEvent(event);
+  const closeDeleteModal = () => setDeletingEvent(null);
 
   const handleUpdateEvent = async (formData: FormData) => {
     startTransition(async () => {
@@ -36,7 +42,7 @@ export default function DashboardEventListWithModal({ events, statusFilter }: Pr
             name="status"
             value={s}
             className={`px-4 py-2 rounded ${
-              statusFilter === s ? "bg-blue-500 text-white" : "bg-gray-200"
+              statusFilter === s ? "bg-brand-pop text-white" : "bg-brand-lightest"
             }`}
           >
             {s.charAt(0) + s.slice(1).toLowerCase()}
@@ -47,10 +53,12 @@ export default function DashboardEventListWithModal({ events, statusFilter }: Pr
       {/* Event List */}
       <DashboardEventList
         events={events}
-        heading={`Events: ${statusFilter.charAt(0) + statusFilter.slice(1).toLowerCase()}`}
+        heading={`${statusFilter.charAt(0) + statusFilter.slice(1).toLowerCase()} Events`}
         approveAction={approveEvent}
         rejectAction={rejectEvent}
+        deleteAction={deleteEvent}
         openEditModal={openEditModal}
+        openPopupModal={openDeleteModal}
       />
 
       {/* Edit Modal */}
@@ -60,6 +68,17 @@ export default function DashboardEventListWithModal({ events, statusFilter }: Pr
           onClose={closeEditModal}
           onSave={handleUpdateEvent}
           isSaving={isPending}
+        />
+      )}
+
+       {/* Delete Modal */}
+      {deletingEvent && (
+        <DeleteModal
+          event={deletingEvent}
+          eventAction={deleteEvent}
+          onClose={closeDeleteModal}
+          message={`Are you sure you want to delete `}
+          eventActionButtonLabel="Delete"
         />
       )}
     </>

@@ -34,13 +34,15 @@ body {
    * COLORS
    * ========================= */
   --color-error: #e71010;
-  --color-brand-even-lighter: #c5e2e7;
-  --color-brand-lightest: #188d87;
-  --color-brand-lighter: #0e403d;
+  --color-brand-even-lighter: #07f2f6;
+  --color-brand-lightest: #227a76;
+  --color-brand-lighter: #1a5b57;
   --color-brand-base: #033f2e;
   --color-brand-dark: #082a28;
   --color-brand-darkest: #051d1b;
-  --color-brand-highlight: #c58210;
+  --color-brand-highlight: #f18a49;
+  --color-brand-pop: #fe5912;
+  --color-brand-pink: #ea4eca;
   --color-purple: #540142;
 
    /* =========================

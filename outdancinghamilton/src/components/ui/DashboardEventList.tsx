@@ -1,12 +1,15 @@
-// app/components/ui/DashboardEventList.tsx
 import { Event } from "@prisma/client";
+import discoball from "@/public/images/discoball.jpg"
+import Image from "next/image";
 
 export interface DashboardEventListProps {
   events: Event[];
   heading: string;
   approveAction?: (data: FormData) => Promise<void>;
   rejectAction?: (data: FormData) => Promise<void>;
+  deleteAction?: (data: FormData) => Promise<void>;
   openEditModal: (event: Event) => void;
+  openPopupModal: (event: Event) => void;
 }
 
 export default function DashboardEventList({
@@ -14,22 +17,50 @@ export default function DashboardEventList({
   heading,
   approveAction,
   rejectAction,
-  openEditModal
+  openEditModal,
+  openPopupModal
 }: DashboardEventListProps) {
   return (
-    <div>
-      <h2 className="text-xl font-semibold mb-2">{heading}</h2>
-      {events.length === 0 && <p>No events.</p>}
-      <ul className="space-y-2">
+    <div className="mb-25">
+      <h2 className="text-6xl font-semibold mb-2 py-8 font-[Bungee] text-brand-pink text-center">{heading}</h2>
+      {events.length === 0 && <p className="text-3xl text-center font-[Bungee] mt-10">No events found</p>}
+      <ul className="mx-auto max-w-5xl justify-center space-y-6">
         {events.map((event) => (
-          <li key={event.id} className="border p-2 rounded flex justify-between items-center">
-            <div>
-              <p className="font-bold">{event.eventName}</p>
-              <p className="text-sm">{event.location}</p>
-              <p className="text-sm">{event.description}</p>
-              <p className="text-gray-500 text-sm">{event.date.toDateString()}</p>
+          <li key={event.id} className="grid grid-row-2 grid-cols-4 w-full bg-white/5 shadow-lg border-2 border-brand-pop rounded-lg p-10">
+            
+            <div className="col-span-1">{event.imgUrl ? <img className="h-80 w-54 object-cover shadow-lg rounded-md" alt={event.eventName} src={event.imgUrl}/> :
+            <Image className="h-80 w-54 object-cover shadow-lg rounded-md" alt={event.eventName} src={discoball}/>
+            }</div>
+
+            <div className="grid grid-cols-2 col-span-3 gap-4 place-content-between text-white text-lg pl-2">
+              <p className="col-span-2 text-4xl text-yellow-400 font-bold font-[Bungee] pb-2">{event.eventName}</p>
+             
+              <p className=""><b><i>What:</i></b> {event.description}</p>
+               {event.price && <p className="text-3xl text-yellow-400 font-semibold font-[Bungee] justify-self-end pr-5">${event.price}</p>}
+              
+              <p className="col-span-2"><b><i>Where:</i></b> {event.location}</p>
+          
+              
+              <p className="col-span-2"><b><i>When:</i></b> {event.date.toDateString()}</p>
+                  {event.age && <p className="">Age Restrictions: {event.age}</p>}
             </div>
-            <div className="flex gap-2">
+            <div className="col-start-4 flex justify-end gap-2">
+              {rejectAction && (
+                <form action={rejectAction}>
+                  <input type="hidden" name="id" value={event.id} />
+                  <button className="bg-orange-400 text-white px-3 py-1 rounded">
+                    Reject
+                  </button>
+                </form>
+              )}
+        
+              <button
+            onClick={() => openPopupModal(event)}
+              className="px-2 py-1 bg-error text-white rounded"
+            >
+              Delete
+            </button>
+            
               {approveAction && (
                 <form action={approveAction}>
                   <input type="hidden" name="id" value={event.id} />
@@ -38,18 +69,10 @@ export default function DashboardEventList({
                   </button>
                 </form>
               )}
-              {rejectAction && (
-                <form action={rejectAction}>
-                  <input type="hidden" name="id" value={event.id} />
-                  <button className="bg-red-500 text-white px-3 py-1 rounded">
-                    Reject
-                  </button>
-                </form>
-              )}
               {/* Edit Button */}
           <button
             onClick={() => openEditModal(event)}
-              className="px-2 py-1 bg-blue-500 text-white rounded"
+              className="px-2 py-1 bg-brand-pink text-white rounded"
             >
               Edit
             </button>

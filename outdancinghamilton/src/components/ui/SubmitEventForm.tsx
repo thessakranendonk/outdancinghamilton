@@ -2,6 +2,8 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import clsx from "clsx";
+import DocUpload from "./DocUpload";
 
 type SubmitEventFormProps = {
   serverAction: (data: FormData) => Promise<void>;
@@ -52,6 +54,8 @@ export default function SubmitEventForm({ serverAction }: SubmitEventFormProps) 
     });
   }
 
+  const formClass="border border-brand-base/50 text-brand-base/80 p-2 w-full rounded"
+
   return (
     <>
     <form
@@ -62,53 +66,69 @@ export default function SubmitEventForm({ serverAction }: SubmitEventFormProps) 
       <input
         name="eventName"
         placeholder="Event Name"
-        className="border p-2 w-full rounded"
+        className={formClass}
         required
       />
       <textarea
         name="description"
         placeholder="Event Description"
-        className="border p-2 w-full rounded"
+        className={formClass}
         required
       />
       <input
         name="location"
         placeholder="Event Location"
-        className="border p-2 w-full rounded"
+        className={formClass}
         required
       />
-      <label>Event Date</label>
-      <input type="date" name="date" className="border p-2 w-full rounded" required />
+      <label className="text-sm text-brand-base/50">Event Date</label>
+      <input type="date" name="date" className={formClass} required />
       <input
         type="email"
         name="email"
         placeholder="Email"
-        className="border p-2 w-full rounded"
+        className={formClass}
         required
       />
-      <input
+      {/* <input
         name="age"
-        className="border p-2 w-full rounded"
+        className={formClass}
         placeholder="List any age requirements"
         required
-      />
+      /> */}
+
+      <select
+  name="age"
+  className={formClass}
+  required
+  defaultValue=""
+>
+  <option value="" disabled>
+    Select age requirement
+  </option>
+  <option value="all">All ages</option>
+  <option value="18+">19+ only</option>
+</select>
+
       <input
         name="price"
-        className="border p-2 w-full rounded"
-        placeholder="Ticket Price if applicable"
+        className={formClass}
+        placeholder="$"
         required
       />
-
+{/* 
       <input
         type="file"
         accept="image/*"
-        className="border p-2 w-full rounded"
+        className={clsx(formClass, "mb-5")}
         onChange={(e) => setFile(e.target.files?.[0] || null)}
-      />
+      /> */}
+                <DocUpload id={"imgUrl"} type={"file"} content={"Upload a file"} label={"Please upload event poster or photo"} description={"Jpg, png, up to 8MB"} />
+
 
       <button
         type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded"
+        className="bg-brand-pop text-white px-4 py-2 rounded"
         disabled={isPending}
       >
         {isPending ? "Adding..." : "Add Event"}
@@ -128,7 +148,7 @@ export default function SubmitEventForm({ serverAction }: SubmitEventFormProps) 
 
       <button
         onClick={() => setShowSuccess(false)}
-        className="bg-brand-base text-white px-4 py-2 rounded hover:bg-brand-base/70"
+        className="bg-brand-pop text-white px-4 py-2 rounded hover:bg-brand-base/70"
       >
         Close
       </button>

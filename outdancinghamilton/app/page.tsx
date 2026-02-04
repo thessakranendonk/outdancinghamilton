@@ -1,11 +1,17 @@
 import { EventStatus, prisma } from "@/src/lib/prisma"
 
+const startOfToday = new Date()
+startOfToday.setHours(0, 0, 0, 0)
+
 export default async function Home() {
   const events = await prisma.event.findMany({
-    where: { status: EventStatus.APPROVED },
+    where: { status: EventStatus.APPROVED, 
+      date: {
+        gte: startOfToday,
+      }  },
     orderBy: { date: "asc" },
   });
-console.log(events)
+
 
   return (
     <div className="flex flex-col min-h-screen font-sans">
