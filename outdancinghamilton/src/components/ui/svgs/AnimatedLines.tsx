@@ -77,8 +77,9 @@ const AnimatedLines: React.FC = () => {
 
   return (
     <svg
-      viewBox={`0 170 ${width} ${height}`}
-      style={{ width: 600, height: 800, background: "#0b3d2f" }}
+      viewBox={`0 160 ${width} ${height}`}
+      style={{ width: 600, height: 800, background: "#033f2e" }}
+      // viewBox={`0 170 600 800`}
     >
       <defs>
         <clipPath id="clipInner">

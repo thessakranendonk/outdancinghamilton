@@ -2,7 +2,7 @@
 import { FaInstagram } from "react-icons/fa";
 import { slideInLeftSlow, slideInUpSoft } from "@/src/lib/animations";
 import AnimateOnScroll from "../ui/animations/AnimateOnScroll";
-import AnimatedLines from "../ui/AnimatedLines";
+import AnimatedLines from "../ui/svgs/AnimatedLines";
 
 export default function Hero() {
     return (
@@ -53,7 +53,7 @@ export default function Hero() {
           <b>Out Dancing Hamilton</b> brings together Hamilton’s dance community, celebrating movement, connection, and fun. Dancing keeps you healthy, lifts your mood, and builds the sense of community we all crave.
         </p>
       </AnimateOnScroll>
-        <div className="flex space-x-6 mt-auto text-white text-xl">
+        <div className="flex space-x-6 mt-auto text-white/80 text-xl">
           <a href="#" aria-label="Instagram" className="flex hover:text-brand-pink transition">
            <p className="pr-2">Follow us on </p><FaInstagram  className="mt-0.5 text-2xl"/>
           </a>

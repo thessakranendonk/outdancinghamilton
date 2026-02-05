@@ -7,24 +7,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum EventStatus {
-  PENDING
-  APPROVED
-  REJECTED
-}
-
-model Event {
-  id          Int      @id @default(autoincrement())
-  eventName       String
+model event {
+  id          Int          @id @default(autoincrement())
+  eventName   String
   description String
   location    String
   date        DateTime
   price       String
   age         String
-  email       String
+  createdAt   DateTime     @default(now())
   imgUrl      String?
-  ticketLink  String?
+  email       String
+  status      event_status @default(PENDING)
   eventLink   String?
-  status      EventStatus   @default(PENDING)
-  createdAt   DateTime @default(now())
+  ticketLink  String?
+}
+
+enum event_status {
+  PENDING
+  APPROVED
+  REJECTED
 }

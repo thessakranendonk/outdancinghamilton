@@ -1,17 +1,27 @@
 // app/admin/dashboard/server-actions.ts
 "use server";
 import { prisma } from "@/src/lib/prisma";
-import { EventStatus } from "@prisma/client";
+import { event_status } from "@prisma/client";
 import { revalidatePath } from "next/cache";
+
+export async function deletePastEvents() {
+  const now = new Date();
+  const result = await prisma.event.deleteMany({
+    where: { date: { lt: now } },
+  });
+  console.log(`Deleted ${result.count} past events`);
+}
 
 // Approve Event
 export async function approveEvent(data: FormData) {
+  await deletePastEvents();
+
   const id = Number(data.get("id"));
   if (!id) return;
 
   await prisma.event.update({
     where: { id },
-    data: { status: EventStatus.APPROVED },
+    data: { status: event_status.APPROVED },
   });
 
   revalidatePath("/admin/dashboard");
@@ -24,7 +34,7 @@ export async function rejectEvent(data: FormData) {
 
   await prisma.event.update({
     where: { id },
-    data: { status: EventStatus.REJECTED },
+    data: { status: event_status.REJECTED },
   });
 
   revalidatePath("/admin/dashboard");
@@ -44,7 +54,7 @@ export async function updateEvent(data: FormData) {
     age: String(data.get("age")),
     ticketLink: String(data.get("ticketLink")),
     eventLink: String(data.get("eventLink")),
-    status: data.get("status") as EventStatus,
+    status: data.get("status") as event_status,
   };
 
   await prisma.event.update({
@@ -68,9 +78,11 @@ export async function deleteEvent(data: FormData) {
   revalidatePath("/admin/dashboard");
 }
 
+
+
 // Submit Event
 export async function submitEvent(data: FormData) {
-  "use server";
+  await deletePastEvents();
 
   const eventName = data.get("eventName")?.toString();
   const location = data.get("location")?.toString();

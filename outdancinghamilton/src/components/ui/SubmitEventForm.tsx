@@ -2,12 +2,23 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import clsx from "clsx";
 import DocUpload from "./DocUpload";
 
 type SubmitEventFormProps = {
   serverAction: (data: FormData) => Promise<void>;
 };
+
+export function toDatetimeLocal(date: Date) {
+  const pad = (n: number) => n.toString().padStart(2, "0");
+
+  const year = date.getFullYear();
+  const month = pad(date.getMonth() + 1);
+  const day = pad(date.getDate());
+  const hours = pad(date.getHours());
+  const minutes = pad(date.getMinutes());
+
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
 
 export default function SubmitEventForm({ serverAction }: SubmitEventFormProps) {
   const router = useRouter();
@@ -54,7 +65,9 @@ export default function SubmitEventForm({ serverAction }: SubmitEventFormProps) 
     });
   }
 
+  
   const formClass="border border-brand-base/50 text-brand-base/80 p-2 w-full rounded"
+
 
   return (
     <>
@@ -84,6 +97,16 @@ export default function SubmitEventForm({ serverAction }: SubmitEventFormProps) 
       <label className="text-sm text-brand-base/50">Event Date</label>
       <input type="datetime-local" name="date" className={formClass} required />
       <input
+        type="datetime-local"
+        name="date"
+        defaultValue={toDatetimeLocal(new Date())}
+        className={formClass}
+      />
+
+
+
+
+      <input
         type="email"
         name="email"
         placeholder="Email"
@@ -91,7 +114,7 @@ export default function SubmitEventForm({ serverAction }: SubmitEventFormProps) 
         required
       />
 
-      <select
+   <select
   name="age"
   className={formClass}
   required
@@ -100,8 +123,8 @@ export default function SubmitEventForm({ serverAction }: SubmitEventFormProps) 
   <option value="" disabled>
     Select age requirement
   </option>
-  <option value="all">All ages</option>
-  <option value="18+">19+ only</option>
+  <option value="All ages">All ages</option>
+  <option value="19+ only">19+ only</option>
 </select>
 
 
