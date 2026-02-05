@@ -82,7 +82,7 @@ export default function SubmitEventForm({ serverAction }: SubmitEventFormProps) 
         required
       />
       <label className="text-sm text-brand-base/50">Event Date</label>
-      <input type="date" name="date" className={formClass} required />
+      <input type="datetime-local" name="date" className={formClass} required />
       <input
         type="email"
         name="email"
@@ -90,12 +90,6 @@ export default function SubmitEventForm({ serverAction }: SubmitEventFormProps) 
         className={formClass}
         required
       />
-      {/* <input
-        name="age"
-        className={formClass}
-        placeholder="List any age requirements"
-        required
-      /> */}
 
       <select
   name="age"
@@ -110,20 +104,27 @@ export default function SubmitEventForm({ serverAction }: SubmitEventFormProps) 
   <option value="18+">19+ only</option>
 </select>
 
+
       <input
         name="price"
         className={formClass}
         placeholder="$"
         required
       />
-{/* 
+<label className="text-sm text-brand-base/50">{`Event Links (Optional)`}</label>
       <input
-        type="file"
-        accept="image/*"
-        className={clsx(formClass, "mb-5")}
-        onChange={(e) => setFile(e.target.files?.[0] || null)}
-      /> */}
-                <DocUpload id={"imgUrl"} type={"file"} content={"Upload a file"} label={"Please upload event poster or photo"} description={"Jpg, png, up to 8MB"} />
+        name="ticketLink"
+        placeholder="If your event is ticketed, enter the link here."
+        className={formClass}
+        />
+
+      <input
+        name="eventLink"
+        placeholder="If your event has a website or social media, enter the link here"
+        className={formClass}
+        />
+
+  <DocUpload id={"imgUrl"} type={"file"} onChange={(e) => setFile(e.target.files?.[0] || null)} content={"Upload a file"} label={"Please upload event poster or photo"} description={"Jpg, png, up to 8MB"} />
 
 
       <button
@@ -138,8 +139,8 @@ export default function SubmitEventForm({ serverAction }: SubmitEventFormProps) 
     {/* SUCCESS MODAL */}
     {showSuccess && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-    <div className="bg-pink-200 rounded-lg shadow-xl p-6 max-w-sm w-full text-center">
-      <h2 className="text-2xl font-bold mb-2 text-orange-600 font-[Bungee]">
+    <div className="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full text-center">
+      <h2 className="text-2xl font-bold mb-2 text-brand-pink font-[Bungee]">
         Event Submitted
       </h2>
       <p className="text-gray-600 mb-4">

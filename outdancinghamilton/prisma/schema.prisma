@@ -23,6 +23,8 @@ model Event {
   age         String
   email       String
   imgUrl      String?
+  ticketLink  String?
+  eventLink   String?
   status      EventStatus   @default(PENDING)
   createdAt   DateTime @default(now())
 }

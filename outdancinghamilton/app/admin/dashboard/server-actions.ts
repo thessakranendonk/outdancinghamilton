@@ -42,6 +42,8 @@ export async function updateEvent(data: FormData) {
     date: new Date(String(data.get("date"))),
     price: String(data.get("price")),
     age: String(data.get("age")),
+    ticketLink: String(data.get("ticketLink")),
+    eventLink: String(data.get("eventLink")),
     status: data.get("status") as EventStatus,
   };
 
@@ -78,7 +80,9 @@ export async function submitEvent(data: FormData) {
   const createdAt = new Date();
   const description = data.get("description")?.toString();
   const dateStr = data.get("date")?.toString();
-  const imgUrl = data.get("imgUrl")?.toString(); // ✅ keep imgUrl
+  const ticketLink = data.get("ticketLink")?.toString();
+  const eventLink= data.get("eventLink")?.toString();
+  const imgUrl = data.get("imgUrl")?.toString(); 
 
   if (
     !eventName ||
@@ -87,8 +91,7 @@ export async function submitEvent(data: FormData) {
     !age ||
     !email ||
     !description ||
-    !dateStr ||
-    !imgUrl
+    !dateStr
   )
     return;
 
@@ -104,8 +107,10 @@ export async function submitEvent(data: FormData) {
       createdAt,
       description,
       date,
-      imgUrl, // store imgUrl
-      status: 'PENDING', // pending by default
+      imgUrl,
+      ticketLink,
+      eventLink,
+      status: 'PENDING',
     },
   });
 

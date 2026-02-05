@@ -23,8 +23,8 @@ export default function EditEventModal({ event, onClose, onSave, isSaving }: Edi
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded w-full max-w-lg">
+    <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+     <div className="bg-white p-6 rounded w-full max-w-lg max-h-[90vh] overflow-y-auto">
         <h2 className="text-4xl text-center text-brand-pop font-[Bungee] font-bold mb-4">Update Event</h2>
         <form onSubmit={handleSubmit} className="space-y-2 text-brand-base">
           <input type="hidden" name="id" value={event.id} />
@@ -54,15 +54,41 @@ export default function EditEventModal({ event, onClose, onSave, isSaving }: Edi
             />
           </div>
 
-          <div>
-            <label className="block font-medium">Price</label>
-            <input name="price" defaultValue={event.price} className={borderClass} />
-          </div>
+                <select
+  name="age"
+  className={borderClass}
+  required
+  defaultValue=""
+>
+  <option value="" disabled>
+    Select age requirement
+  </option>
+  <option value="all">All ages</option>
+  <option value="18+">19+ only</option>
+</select>
 
-          <div>
-            <label className="block font-medium">Age Restrictions</label>
-            <input name="age" defaultValue={event.age} className={borderClass} />
-          </div>
+
+      <input
+        name="price"
+        className={borderClass}
+        placeholder="$"
+        defaultValue={event.price}
+        required
+      />
+<label className="text-sm text-brand-base/50">{`Event Links (Optional)`}</label>
+      <input
+        name="ticketLink"
+        placeholder="If your event is ticketed, enter the link here."
+        className={borderClass}
+        defaultValue={event.ticketLink ?? ""}
+        />
+
+      <input
+        name="eventLink"
+        placeholder="If your event has a website or social media, enter the link here"
+        className={borderClass}
+        defaultValue={event.eventLink ?? ""}
+        />
 
           <div>
             <label className="block font-medium">Status</label>

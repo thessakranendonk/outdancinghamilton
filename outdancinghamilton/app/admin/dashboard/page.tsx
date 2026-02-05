@@ -33,7 +33,7 @@ export default async function AdminDashboard({ searchParams }: AdminDashboardPro
   });
 
   return (
-    <div>
+    <div className="mt-20">
     <DashboardEventListWithModal events={events} statusFilter={status} />
     <div className="max-w-3xl mx-auto bg-white/90 rounded-lg p-10">
       <h2 className="text-5xl text-brand-pink font-[Bungee] text-center mb-10">Add a new event</h2>

@@ -34,7 +34,7 @@ export default function DashboardEventListWithModal({ events, statusFilter }: Pr
   return (
     <>
       {/* Status Filter Form */}
-      <form method="get" className="flex space-x-2 mb-4">
+      <form method="get" className="flex space-x-2 justify-end mb-4 mr-5">
         {["PENDING", "APPROVED", "REJECTED"].map((s) => (
           <button
             key={s}

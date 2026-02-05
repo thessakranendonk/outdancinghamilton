@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 
 @import "tailwindcss";
 
@@ -51,6 +52,7 @@ body {
   --font-monteserrat: "Montserrat", sans-serif;
   --font-bungee: "Bungee", sans-serif;
   --font-monoton: "Monoton", cursive;
+  --font-quicksand: "Quicksand", sans-serif;
 }
 
 
