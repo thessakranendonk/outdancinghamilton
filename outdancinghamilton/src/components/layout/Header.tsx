@@ -11,6 +11,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import HamburgerIcon from "../ui/icons/HamburgerIcon";
 import { HeaderProps } from "@/types/component-types";
 import logo from "@/public/svg/disco.svg"
+import Socials from "../ui/icons/Socials";
 
 
 export function useOnClickOutside<T extends HTMLElement>(
@@ -183,10 +184,9 @@ const DesktopNavBar: React.FC<
   useOnClickOutside(ref, (event: MouseEvent | TouchEvent) => {
     setIsClick(false);
   });
-  console.log(currentActiveLocation,
-  activeLinkClassName, navigationLinks)
   return (
-    <ul className="flex">
+    <ul className="flex lg:w-7xl justify-between">
+      <div className="flex">
       {navigationLinks.map((link, i) => {
         return (
           <li key={link.name}>
@@ -311,6 +311,8 @@ const DesktopNavBar: React.FC<
           </li>
         );
       })}
+      </div>
+      <Socials />
     </ul>
   );
 };
@@ -402,7 +404,7 @@ const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* DESKTOP MENU */}
-      <div className="hidden lg:inline-flex mt-3">
+      <div className="hidden lg:flex mt-3">
         <DesktopNavBar
           navigationLinks={navigationLinks}
           textClassName={textClassName}

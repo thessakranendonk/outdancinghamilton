@@ -50,6 +50,8 @@ export async function updateEvent(data: FormData) {
     description: String(data.get("description")),
     location: String(data.get("location")),
     date: new Date(String(data.get("date"))),
+    startTime: String(data.get("startTime")),
+    endTime: String(data.get("endTime")),
     price: String(data.get("price")),
     age: String(data.get("age")),
     ticketLink: String(data.get("ticketLink")),
@@ -91,7 +93,9 @@ export async function submitEvent(data: FormData) {
   const email = data.get("email")?.toString();
   const createdAt = new Date();
   const description = data.get("description")?.toString();
-  const dateStr = data.get("date")?.toString();
+  const dateInput = data.get("date") as string;
+  const startTime = data.get("startTime") as string;
+  const endTime = data.get("endTime") as string;
   const ticketLink = data.get("ticketLink")?.toString();
   const eventLink= data.get("eventLink")?.toString();
   const imgUrl = data.get("imgUrl")?.toString(); 
@@ -103,11 +107,14 @@ export async function submitEvent(data: FormData) {
     !age ||
     !email ||
     !description ||
-    !dateStr
+    !dateInput ||
+    !startTime ||
+    !endTime
   )
     return;
 
-  const date = new Date(dateStr);
+const date = new Date(dateInput);
+
 
   await prisma.event.create({
     data: {
@@ -119,6 +126,8 @@ export async function submitEvent(data: FormData) {
       createdAt,
       description,
       date,
+      startTime,
+      endTime,
       imgUrl,
       ticketLink,
       eventLink,

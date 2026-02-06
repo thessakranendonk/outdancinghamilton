@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import DocUpload from "./DocUpload";
+import Link from "next/link";
 
 type SubmitEventFormProps = {
   serverAction: (data: FormData) => Promise<void>;
@@ -26,6 +27,11 @@ export default function SubmitEventForm({ serverAction }: SubmitEventFormProps) 
   const [file, setFile] = useState<File | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
 
+  const today = new Date().toISOString().split("T")[0];
+
+const [date, setDate] = useState(today);
+const [startTime, setStartTime] = useState("18:00");
+const [endTime, setEndTime] = useState("21:00");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -55,6 +61,9 @@ export default function SubmitEventForm({ serverAction }: SubmitEventFormProps) 
       // Cloudinary URL to formData for the server action
       formData.set("imgUrl", imgUrl);
     }
+
+    const startDateTime = `${date}T${startTime}`;
+    formData.set("date", startDateTime);
 
     startTransition(async () => {
       await serverAction(formData); // send all form data + Cloudinary URL
@@ -94,16 +103,36 @@ export default function SubmitEventForm({ serverAction }: SubmitEventFormProps) 
         className={formClass}
         required
       />
-      <label className="text-sm text-brand-base/50">Event Date</label>
-      <input type="datetime-local" name="date" className={formClass} required />
-      <input
-        type="datetime-local"
-        name="date"
-        defaultValue={toDatetimeLocal(new Date())}
-        className={formClass}
-      />
+      <label className="text-sm text-brand-base/50">Event Date & Time</label>
 
+<div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+  <input
+    type="date"
+    name="date"
+    value={date}
+    onChange={(e) => setDate(e.target.value)}
+    className={formClass}
+    required
+  />
 
+  <input
+    type="time"
+    name="startTime"
+    value={startTime}
+    onChange={(e) => setStartTime(e.target.value)}
+    className={formClass}
+    required
+  />
+
+  <input
+    type="time"
+    name="endTime"
+    value={endTime}
+    onChange={(e) => setEndTime(e.target.value)}
+    className={formClass}
+    required
+  />
+</div>
 
 
       <input
@@ -147,12 +176,24 @@ export default function SubmitEventForm({ serverAction }: SubmitEventFormProps) 
         className={formClass}
         />
 
-  <DocUpload id={"imgUrl"} type={"file"} onChange={(e) => setFile(e.target.files?.[0] || null)} content={"Upload a file"} label={"Please upload event poster or photo"} description={"Jpg, png, up to 8MB"} />
+        <DocUpload
+          id="imgUrl"
+          type="file"
+          onChange={(e) => setFile(e.target.files?.[0] || null)}
+          content={file ? "File uploaded ✔" : "Upload a file"}
+          label="Please upload event poster or photo"
+          description="Jpg, png, up to 8MB"
+        />
+        {file && (
+          <p className="text-sm text-green-700 mt-1">
+            ✅ {file.name} uploaded
+          </p>
+      )}
 
 
       <button
         type="submit"
-        className="bg-brand-pop text-white px-4 py-2 rounded"
+        className="bg-brand-pop text-white px-4 py-2 rounded border-2 border-pink-600 hover:bg-brand-highlight/80"
         disabled={isPending}
       >
         {isPending ? "Adding..." : "Add Event"}
@@ -172,10 +213,17 @@ export default function SubmitEventForm({ serverAction }: SubmitEventFormProps) 
 
       <button
         onClick={() => setShowSuccess(false)}
-        className="bg-brand-pop text-white px-4 py-2 rounded hover:bg-brand-base/70"
+        className="bg-brand-pop text-white px-4 py-2 rounded-lg hover:bg-brand-highlight/70 border-2 border-pink-600 mr-3"
       >
-        Close
+        Submit More
       </button>
+       <Link
+       href="/"
+        onClick={() => setShowSuccess(false)}
+        className="bg-brand-pink  text-white px-4 py-3 rounded-lg hover:bg-brand-pink/70 border-2 border-pink-900"
+      >
+        Homepage
+      </Link>
     </div>
   </div>
 )}

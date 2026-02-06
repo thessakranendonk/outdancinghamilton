@@ -3,6 +3,8 @@ import Link from "next/link";
 import { FaInstagram } from "react-icons/fa";
 import AnimateOnScroll from "../ui/animations/AnimateOnScroll";
 import { slideInLeftSlow, slowFadeIn } from "@/src/lib/animations";
+import { MdOutlineEmail } from "react-icons/md";
+import Socials from "../ui/icons/Socials";
 
 
 const Footer: React.FC<{ navigationLinks: Array<NavigationLinkProps> }> = ({ navigationLinks }) => {
@@ -28,12 +30,7 @@ const Footer: React.FC<{ navigationLinks: Array<NavigationLinkProps> }> = ({ nav
             </li>
         )
           })}
-          <div className="flex space-x-6 mt-auto text-white/80 text-xl">
-                    <a href="https://www.instagram.com/outdancinghamilton/?hl=en" target="_blank" aria-label="Instagram" className="flex mx-auto hover:text-brand-pink transition">
-                    <FaInstagram  className="mt-0.5 text-2xl"/>
-                    </a>
-                  </div>  
-                  
+                  <Socials />
           </ul>
           </AnimateOnScroll>
     </footer>

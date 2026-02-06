@@ -1,27 +1,27 @@
 "use client";
 import { useState, useTransition } from "react";
-import DashboardEventList from "./DashboardEventList";
 import EditEventModal from "./EditEventModal";
-import { Event } from "@prisma/client";
-import { EventStatus } from "@prisma/client";
+
 import { approveEvent, deleteEvent, rejectEvent, updateEvent } from "@/app/admin/dashboard/server-actions";
 import DeleteModal from "./DeleteModal";
+import EventCard from "./EventCard";
+import { event_status, event } from "@prisma/client";
 
 interface Props {
-  events: Event[];
-  statusFilter: EventStatus;
+  events: event[];
+  statusFilter: event_status;
 }
 
 export default function DashboardEventListWithModal({ events, statusFilter }: Props) {
-  const [editingEvent, setEditingEvent] = useState<Event | null>(null);
-  const [deletingEvent, setDeletingEvent] = useState<Event | null>(null);
+  const [editingEvent, setEditingEvent] = useState<event | null>(null);
+  const [deletingEvent, setDeletingEvent] = useState<event | null>(null);
 
   const [isPending, startTransition] = useTransition();
 
-  const openEditModal = (event: Event) => setEditingEvent(event);
+  const openEditModal = (event: event) => setEditingEvent(event);
   const closeEditModal = () => setEditingEvent(null);
 
-  const openDeleteModal = (event: Event) => setDeletingEvent(event);
+  const openDeleteModal = (event: event) => setDeletingEvent(event);
   const closeDeleteModal = () => setDeletingEvent(null);
 
   const handleUpdateEvent = async (formData: FormData) => {
@@ -51,7 +51,7 @@ export default function DashboardEventListWithModal({ events, statusFilter }: Pr
       </form>
 
       {/* Event List */}
-      <DashboardEventList
+      <EventCard
         events={events}
         heading={`${statusFilter.charAt(0) + statusFilter.slice(1).toLowerCase()} Events`}
         approveAction={approveEvent}
