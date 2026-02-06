@@ -1,5 +1,5 @@
 import SubmitEventForm from "@/src/components/ui/SubmitEventForm"; // your client component
-import { submitEvent } from "../admin/dashboard/server-actions";
+import { submitEvent, submitEventWithEmail } from "../admin/dashboard/server-actions";
 
 
 
@@ -9,7 +9,7 @@ export default function SubmitEvent() {
     <main className="flex p-8 max-w-6xl mx-auto mt-20 gap-10">
       <div className="max-w-2xl mx-auto bg-white/90 rounded-lg p-10">
             <h2 className="text-5xl text-brand-pink font-[Bungee] text-center mb-10">Submit Your Event</h2>
-          <SubmitEventForm serverAction={submitEvent} /> 
+          <SubmitEventForm serverAction={submitEventWithEmail} /> 
           </div>
           <div className="max-w-xl pl-10">
             <h3 className="text-3xl font-bungee text-brand-pink my-10">Event Criteria</h3>

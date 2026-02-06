@@ -4,10 +4,32 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import DocUpload from "./DocUpload";
 import Link from "next/link";
+import { event } from "@prisma/client";
+
+// type SubmitEventFormProps = {
+//   serverAction: (data: FormData) => Promise<void>;
+// };
 
 type SubmitEventFormProps = {
-  serverAction: (data: FormData) => Promise<void>;
+  serverAction: (data: FormData) => Promise<{
+    id: number;
+    eventName: string;
+    description: string;
+    location: string;
+    date: Date;
+    startTime: string | null;
+    endTime: string | null;
+    price: string;
+    age: string;
+    createdAt: Date;
+    imgUrl: string | null;
+    ticketLink: string | null;
+    eventLink: string | null;
+    status: string;
+  } | any>;
 };
+
+
 
 export function toDatetimeLocal(date: Date) {
   const pad = (n: number) => n.toString().padStart(2, "0");
