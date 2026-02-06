@@ -4,7 +4,7 @@ import discoball from "@/public/images/discoball.jpg"
 import Image from "next/image";
 import { OutDancingLink } from "./OutDancingLink";
 import AnimateOnScroll from "./animations/AnimateOnScroll";
-import { fadeIn, slideInUp, slideInUpSoft } from "@/src/lib/animations";
+import { fadeIn, slideInUpSoft } from "@/src/lib/animations";
 
 
 export interface DashboardEventListProps {
@@ -36,7 +36,7 @@ export default function DashboardEventList({
         {events.map((ev) => (
           <li key={ev.id}>
             <AnimateOnScroll customVariants={slideInUpSoft}>
-              <div className="grid grid-row-2 grid-cols-4 w-full bg-white/5 shadow-lg border-2 border-brand-pop rounded-lg p-10">
+              <div className="grid grid-row-2 grid-cols-4 w-full bg-brand-dark shadow-lg border-2 border-brand-pop rounded-lg p-10">
             <div className="col-span-1">{ev.imgUrl ? <img className="h-80 w-54 object-cover shadow-lg rounded-md" alt={ev.eventName} src={ev.imgUrl}/> :
             <Image className="h-80 w-54 object-cover shadow-lg rounded-md" alt={ev.eventName} src={discoball}/>
             }</div>

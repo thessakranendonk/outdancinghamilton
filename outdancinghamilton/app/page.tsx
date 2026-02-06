@@ -4,6 +4,7 @@ import DashboardEventList from "@/src/components/ui/DashboardEventList";
 import { EventStatus, prisma } from "@/src/lib/prisma"
 import { deletePastEvents } from "./admin/dashboard/server-actions";
 import Divider from "@/src/components/ui/svgs/Divider";
+import EventCard from "@/src/components/ui/EventCard";
 
 const startOfToday = new Date()
 startOfToday.setHours(0, 0, 0, 0)
@@ -25,7 +26,8 @@ export default async function Home() {
     <Hero />
     <Divider />
     <div id="upcoming-events">
-      <DashboardEventList events={events} heading="Upcoming Events" />
+      {/* <DashboardEventList events={events} heading="Upcoming Events" /> */}
+    <EventCard events={events} heading="Upcoming Events"/>
     </div>
 
     </div>

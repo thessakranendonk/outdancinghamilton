@@ -343,7 +343,7 @@ const Header: React.FC<HeaderProps> = ({
   if (!hydrated) return null; // wait until client hydration
 
   return (
-    <header className="fixed flex w-screen h-14 items-center bg-brand-base z-40 pb-2 md:pb-2 md:pl-20 border-b-3 border-brand-pop">
+    <header className="fixed flex w-screen h-14 items-center bg-brand-darkest z-40 pb-2 md:pb-2 md:pl-18 border-b-5 border-brand-pop">
       <div className="m-0">
       
            {logo ? (
