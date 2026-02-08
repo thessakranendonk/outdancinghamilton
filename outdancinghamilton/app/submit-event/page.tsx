@@ -7,11 +7,11 @@ import { submitEvent, submitEventWithEmail } from "../admin/dashboard/server-act
 export default function SubmitEvent() {
   return (
     <main className="flex p-8 max-w-6xl mx-auto mt-20 gap-10">
-      <div className="max-w-2xl mx-auto bg-white/90 rounded-lg p-10">
+      <div className="flex-0.5 mx-auto bg-white/90 rounded-lg p-10">
             <h2 className="text-5xl text-brand-pink font-[Bungee] text-center mb-10">Submit Your Event</h2>
           <SubmitEventForm serverAction={submitEventWithEmail} /> 
           </div>
-          <div className="max-w-xl pl-10">
+          <div className="flex-1 pl-10">
             <h3 className="text-3xl font-bungee text-brand-pink my-10">Event Criteria</h3>
             <ul className="list-disc space-y-3 font-quicksand">
                 <li><strong>In Hamilton, Ontario</strong></li>

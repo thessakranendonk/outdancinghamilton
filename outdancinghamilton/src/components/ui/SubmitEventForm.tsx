@@ -97,130 +97,158 @@ const [endTime, setEndTime] = useState("21:00");
   }
 
   
-  const formClass="border border-brand-base/50 text-brand-base/80 p-2 w-full rounded"
+  // const formClass="border border-brand-base/50 text-brand-base/80 p-2 w-full rounded"
+
+  const formClass =
+  "border border-brand-base/50 text-brand-base/80 px-3 py-2 w-full rounded-md " +
+  "focus:border-brand-pink focus:ring-2 focus:ring-brand-pink/30 focus:outline-none";
 
 
   return (
     <>
     <form
-      onSubmit={handleSubmit}
-      className="space-y-2"
-      encType="multipart/form-data"
-    >
-      <input
-        name="eventName"
-        placeholder="Event Name"
-        className={formClass}
-        required
-      />
-      <textarea
-        name="description"
-        placeholder="Event Description"
-        className={formClass}
-        required
-      />
-      <input
-        name="location"
-        placeholder="Event Location"
-        className={formClass}
-        required
-      />
-      <label className="text-sm text-brand-base/50">Event Date & Time</label>
-
-<div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-  <input
-    type="date"
-    name="date"
-    value={date}
-    onChange={(e) => setDate(e.target.value)}
-    className={formClass}
-    required
-  />
-
-  <input
-    type="time"
-    name="startTime"
-    value={startTime}
-    onChange={(e) => setStartTime(e.target.value)}
-    className={formClass}
-    required
-  />
-
-  <input
-    type="time"
-    name="endTime"
-    value={endTime}
-    onChange={(e) => setEndTime(e.target.value)}
-    className={formClass}
-    required
-  />
-</div>
-
-
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        className={formClass}
-        required
-      />
-
-   <select
-  name="age"
-  className={formClass}
-  required
-  defaultValue=""
+  onSubmit={handleSubmit}
+  encType="multipart/form-data"
+  className="space-y-5 text-brand-base"
 >
-  <option value="" disabled>
-    Select age requirement
-  </option>
-  <option value="All ages">All ages</option>
-  <option value="19+ only">19+ only</option>
-</select>
+  {/* EVENT DETAILS */}
+  <section className="space-y-2">
+    <h3 className="text-lg font-bold text-brand-base">Event Details</h3>
 
+    <div className="space-y-2">
+      <div>
+        <label className="block text-sm mb-1">Event Name</label>
+        <input name="eventName" className={formClass} required />
+      </div>
 
-      <input
-        name="price"
-        className={formClass}
-        placeholder="$"
-        required
-      />
-<label className="text-sm text-brand-base/50">{`Event Links (Optional)`}</label>
+      <div>
+        <label className="block text-sm mb-1">Event Description</label>
+        <textarea
+          name="description"
+          className={`${formClass} min-h-[96px]`}
+          required
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm mb-1">Event Location</label>
+        <input name="location" className={formClass} required />
+      </div>
+    </div>
+
+    {/* DATE & TIME */}
+    <div className="space-y-2">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div>
+          <label className="block text-sm mb-1">Event Date</label>
+          <input
+            type="date"
+            name="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className={formClass}
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm mb-1">Start Time</label>
+          <input
+            type="time"
+            name="startTime"
+            value={startTime}
+            onChange={(e) => setStartTime(e.target.value)}
+            className={formClass}
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm mb-1">End Time</label>
+          <input
+            type="time"
+            name="endTime"
+            value={endTime}
+            onChange={(e) => setEndTime(e.target.value)}
+            className={formClass}
+            required
+          />
+        </div>
+      </div>
+    </div>
+    <div className="space-y-2">
+
+      <div>
+        <label className="block text-sm mb-1">Age Requirement</label>
+        <select
+          name="age"
+          className={formClass}
+          required
+          defaultValue=""
+        >
+          <option value="" disabled>
+            Select age requirement
+          </option>
+          <option value="All ages">All ages</option>
+          <option value="19+ only">19+ only</option>
+        </select>
+      </div>
+
+      <div>
+        <label className="block text-sm mb-1">Price ($) - or enter Free</label>
+        <input name="price" className={formClass} required />
+      </div>
+    </div>
+  </section>
+
+  {/* LINKS & MEDIA */}
+  <section className="space-y-2">
+    <h3 className="text-lg font-bold text-brand-base">Links & Media</h3>
+
+    <div className="space-y-2">
       <input
         name="ticketLink"
-        placeholder="If your event is ticketed, enter the link here."
+        placeholder="Ticketlink (Optional)"
         className={formClass}
-        />
+      />
 
       <input
         name="eventLink"
-        placeholder="If your event has a website or social media, enter the link here"
+        placeholder="Website or social media (Optional)"
         className={formClass}
-        />
+      />
 
-        <DocUpload
-          id="imgUrl"
-          type="file"
-          onChange={(e) => setFile(e.target.files?.[0] || null)}
-          content={file ? "File uploaded ✔" : "Upload a file"}
-          label="Please upload event poster or photo"
-          description="Jpg, png, up to 8MB"
-        />
-        {file && (
-          <p className="text-sm text-green-700 mt-1">
-            ✅ {file.name} uploaded
-          </p>
+<div>
+        <label className="block text-sm mb-1">Email (Internal Use Only)</label>
+        <input type="email" name="email" className={formClass} required />
+      </div>
+      <DocUpload
+        id="imgUrl"
+        type="file"
+        onChange={(e) => setFile(e.target.files?.[0] || null)}
+        content={file ? "File uploaded ✔" : "Upload a file"}
+        label="Please upload event poster or photo"
+        description="Jpg, png, up to 8MB"
+      />
+
+      {file && (
+        <p className="text-sm text-green-700">
+          ✅ {file.name} uploaded
+        </p>
       )}
+    </div>
+  </section>
 
+  {/* SUBMIT */}
+  <button
+    type="submit"
+    disabled={isPending}
+    className="w-full bg-brand-pop text-white py-3 rounded-md border-2 border-pink-600 hover:bg-brand-highlight/80 transition"
+  >
+    {isPending ? "Submitting..." : "Submit Event"}
+  </button>
+</form>
 
-      <button
-        type="submit"
-        className="bg-brand-pop text-white px-4 py-2 rounded border-2 border-pink-600 hover:bg-brand-highlight/80"
-        disabled={isPending}
-      >
-        {isPending ? "Adding..." : "Add Event"}
-      </button>
-    </form>
 
     {/* SUCCESS MODAL */}
     {showSuccess && (
