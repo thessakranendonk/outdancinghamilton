@@ -144,7 +144,6 @@ const [endTime, setEndTime] = useState("21:00");
           <input
             type="date"
             name="date"
-            value={date}
             onChange={(e) => setDate(e.target.value)}
             className={formClass}
             required
@@ -156,7 +155,6 @@ const [endTime, setEndTime] = useState("21:00");
           <input
             type="time"
             name="startTime"
-            value={startTime}
             onChange={(e) => setStartTime(e.target.value)}
             className={formClass}
             required
@@ -168,7 +166,6 @@ const [endTime, setEndTime] = useState("21:00");
           <input
             type="time"
             name="endTime"
-            value={endTime}
             onChange={(e) => setEndTime(e.target.value)}
             className={formClass}
             required
