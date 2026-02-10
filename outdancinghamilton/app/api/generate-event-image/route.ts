@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/src/lib/prisma";
-import { drawEventImage } from "@/src/lib/image/drawEventImage";
+import { drawEventImage } from "@/src/lib/image/drawTodaysEventImage";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
