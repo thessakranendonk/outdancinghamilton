@@ -1,10 +1,5 @@
 {
   "version": 2,
-  "functions": {
-    "api/clean-up-data": { "runtime": "nodejs18.x" },
-    "api/daily-email": { "runtime": "nodejs18.x" },
-    "api/weekly-email": { "runtime": "nodejs18.x" }
-  },
   "crons": [
     { "path": "/api/clean-up-data", "schedule": "0 0 * * *" },
     { "path": "/api/daily-email", "schedule": "0 3 * * *" },
