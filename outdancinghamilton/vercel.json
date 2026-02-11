@@ -1,8 +1,8 @@
 {
   "version": 2.1,
   "crons": [
-    { "path": "/app/api/clean-up-data", "schedule": "0 0 * * *" },
-    { "path": "/app/api/daily-email", "schedule": "0 3 * * *" },
-    { "path": "/app/api/weekly-email", "schedule": "0 3 * * 1" }
+    { "path": "/api/clean-up-data", "schedule": "0 0 * * *" },
+    { "path": "/api/daily-email", "schedule": "0 3 * * *" },
+    { "path": "/api/weekly-email", "schedule": "0 3 * * 1" }
   ]
 }
