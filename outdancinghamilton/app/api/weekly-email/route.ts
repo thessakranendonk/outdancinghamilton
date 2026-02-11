@@ -104,6 +104,30 @@
 //     return new Response("Error sending weekly email", { status: 500 });
 //   }
 // }
+// export async function GET() {
+//   return new Response("Weekly email route works!");
+// }
+import { prisma } from "@/src/lib/prisma";
+
 export async function GET() {
-  return new Response("Weekly email route works!");
+  // Fetch approved events for the current week
+  const today = new Date();
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - today.getDay() + 1);
+  monday.setHours(0, 0, 0, 0);
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 7);
+
+  const events = await prisma.event.findMany({
+    where: {
+      status: "APPROVED",
+      date: { gte: monday, lt: sunday },
+    },
+    orderBy: [{ date: "asc" }, { startTime: "asc" }],
+  });
+
+  return new Response(JSON.stringify(events), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  });
 }
