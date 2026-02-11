@@ -1,28 +1,13 @@
 {
   "version": 2,
-    "functions": {
-    "api/clean-up-data/route.ts": {
-      "runtime": "nodejs18.x" 
-    },
-    "/api/daily-email/route.ts": {
-      "runtime": "nodejs18.x" 
-    },
-     "/api/weekly-email/route.ts": {
-      "runtime": "nodejs18.x" 
-    }
+  "functions": {
+    "api/clean-up-data": { "runtime": "nodejs18.x" },
+    "api/daily-email": { "runtime": "nodejs18.x" },
+    "api/weekly-email": { "runtime": "nodejs18.x" }
   },
   "crons": [
-    {
-      "path": "/api/clean-up-data",
-      "schedule": "0 0 * * *" 
-    },
-     {
-      "path": "/api/daily-email",
-      "schedule": "0 3 * * *" 
-    },
-    {
-      "path": "/api/weekly-email",
-      "schedule": "0 3 * * 1" 
-    }
+    { "path": "/api/clean-up-data", "schedule": "0 0 * * *" },
+    { "path": "/api/daily-email", "schedule": "0 3 * * *" },
+    { "path": "/api/weekly-email", "schedule": "0 3 * * 1" }
   ]
 }
