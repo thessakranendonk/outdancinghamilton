@@ -1,5 +1,6 @@
 {
-  "functions": {
+  "version": 2,
+    "functions": {
     "api/clean-up-data/route.ts": {
       "runtime": "nodejs18.x" 
     },
