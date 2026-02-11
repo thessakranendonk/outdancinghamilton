@@ -1,13 +1,13 @@
 {
   "functions": {
     "api/clean-up-data/route.ts": {
-      "runtime": "edge" 
+      "runtime": "nodejs18.x" 
     },
     "/api/daily-email/route.ts": {
-      "runtime": "edge" 
+      "runtime": "nodejs18.x" 
     },
      "/api/weekly-email/route.ts": {
-      "runtime": "edge" 
+      "runtime": "nodejs18.x" 
     }
   },
   "crons": [
