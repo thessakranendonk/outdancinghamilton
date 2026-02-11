@@ -1,9 +1,11 @@
 import Hero from "@/src/components/layout/Hero";
-import { EventStatus, prisma } from "@/src/lib/prisma";
-import { deletePastEvents } from "./admin/dashboard/server-actions";
+import { prisma } from "@/src/lib/prisma";
 import Divider from "@/src/components/ui/svgs/Divider";
 import EventCard from "@/src/components/ui/EventCard";
 import EventFilter from "@/src/components/ui/EventFilter";
+import { event_status } from "@prisma/client";
+
+export const dynamic = "force-dynamic";
 
 type PageProps = {
   searchParams: Promise<{
@@ -12,7 +14,7 @@ type PageProps = {
   }>;
 };
 
-// Convert a Date to YYYY-MM-DD string
+// Convert a Date to YYYY-MM-DD
 function formatDate(date: Date) {
   const d = new Date(date);
   const year = d.getFullYear();
@@ -32,7 +34,6 @@ function isEventInRange(eventDate: Date, from?: string, to?: string) {
 }
 
 export default async function Home({ searchParams }: PageProps) {
-  await deletePastEvents();
   const params = await searchParams;
 
   const from = params.from;
@@ -40,7 +41,7 @@ export default async function Home({ searchParams }: PageProps) {
 
   // Fetch all approved events (no time filtering)
   const events = await prisma.event.findMany({
-    where: { status: EventStatus.APPROVED },
+    where: { status: event_status.APPROVED },
     orderBy: { date: "asc" },
   });
 

@@ -1,0 +1,27 @@
+{
+  "functions": {
+    "api/clean-up-data/route.ts": {
+      "runtime": "edge" 
+    },
+    "/api/daily-email/route.ts": {
+      "runtime": "edge" 
+    },
+     "/api/weekly-email/route.ts": {
+      "runtime": "edge" 
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/clean-up-data",
+      "schedule": "0 0 * * *" 
+    },
+     {
+      "path": "/api/daily-email",
+      "schedule": "0 3 * * *" 
+    },
+    {
+      "path": "/api/weekly-email",
+      "schedule": "0 3 * * 1" 
+    }
+  ]
+}
