@@ -1,8 +1,8 @@
 "use client";
-import { Event } from "@prisma/client";
+import { event } from "@prisma/client";
 
 interface DeleteModalProps {
-  event: Event;
+  event: event;
   message: string,
   onClose: () => void;
   eventAction?: (formData: FormData) => Promise<void>;

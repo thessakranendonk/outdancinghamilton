@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/src/lib/prisma";
-import { drawEventImage } from "@/src/lib/image/drawTodaysEventImage";
+import { drawTodaysEventImage } from "@/src/lib/image/drawTodaysEventImage";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
@@ -18,7 +18,7 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: "Event not found" }, { status: 404 });
   }
 
-  const imageBuffer: Buffer = await drawEventImage([
+  const imageBuffer: Buffer = await drawTodaysEventImage([
   {
     eventName: event.eventName,
     date: event.date,
