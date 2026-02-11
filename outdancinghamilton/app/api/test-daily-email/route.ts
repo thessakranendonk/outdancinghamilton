@@ -7,3 +7,7 @@
 //   await runWeeklyEventsEmail();
 //   return Response.json({ ok: true });
 // }
+// app/api/weekly-email/route.ts
+export async function GET() {
+  return new Response("Hello from weekly-email");
+}
