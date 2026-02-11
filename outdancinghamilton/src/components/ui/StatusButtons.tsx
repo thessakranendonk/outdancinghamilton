@@ -1,15 +1,15 @@
 "use client";
 
-import { EventStatus } from "@/src/lib/prisma";
+import { event_status } from "@prisma/client";
 import { useState } from "react";
 
 interface StatusButtonsProps {
-  onChange: (status: EventStatus.PENDING | EventStatus.APPROVED | EventStatus.REJECTED) => void;
-  currentStatus: EventStatus.PENDING | EventStatus.APPROVED | EventStatus.REJECTED;
+  onChange: (status: event_status ) => void;
+  currentStatus: event_status;
 }
 
 export default function StatusButtons({ onChange, currentStatus }: StatusButtonsProps) {
-  const statuses: StatusButtonsProps["currentStatus"][] = [EventStatus.PENDING, EventStatus.APPROVED, EventStatus.REJECTED];
+  const statuses: StatusButtonsProps["currentStatus"][] = [event_status.PENDING, event_status.APPROVED, event_status.REJECTED];
 
   return (
     <div className="flex space-x-2 mb-4">
