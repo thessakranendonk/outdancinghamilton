@@ -53,7 +53,7 @@ export default async function Home({ searchParams }: PageProps) {
     <div className="flex flex-col min-h-screen font-sans mt-14">
       <Hero />
       <Divider />
-      <div id="upcoming-events" className="mb-20">
+      <div id="upcoming-events" className="mb-10 md:mb-20">
         <EventFilter from={from} to={to} />
         <EventCard events={filteredEvents} heading="Upcoming Events" />
       </div>

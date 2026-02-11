@@ -56,9 +56,16 @@ export default function EventFilter({ from, to }: Props) {
     <div className="relative ml-10" ref={panelRef}>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-lg text-md font-semibold font-quicksand text-brand-pink border-1 border-brand-pink"
+        className="hidden md:flex items-center gap-2 bg-white/5 px-4 py-2 rounded-lg text-md font-semibold font-quicksand text-brand-pink border-1 border-brand-pink"
       >
         Filter by date
+        <span className="text-lg">☰</span>
+      </button>
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="flex md:hidden items-center gap-2 bg-white/5 px-4 py-2 rounded-lg text-md font-semibold font-quicksand text-brand-pink border-1 border-brand-pink"
+      >
+        
         <span className="text-lg">☰</span>
       </button>
 

@@ -62,27 +62,146 @@ function formatTime(time: string) {
     return (
         <div>
         <AnimateOnScroll customVariants={fadeIn}>
-      <h2 className="text-6xl font-semibold mb-2 pt-8 pb-20 font-[Bungee] text-shadow-lg text-brand-pink text-center">{heading}</h2>
+      <h2 className="text-4xl md:text-6xl font-semibold mb-2 px-10 md:px-0 pt-8 pb-10 md:pb-20 font-[Bungee] text-shadow-lg text-brand-pink text-center">{heading}</h2>
       </AnimateOnScroll>
             <ul className="mx-auto max-w-5xl justify-center space-y-6 font-quicksand">
         {events.map((ev) => (
-          <li key={ev.id}>
+//           <li key={ev.id}>
+//             <AnimateOnScroll customVariants={slideInUpSoft}>
+//               <div className="grid grid-row-2 grid-cols-4 w-full bg-white/80 text-brand-base/80 rounded-lg shadow-xl">
+//                 <div>
+//                   {ev.imgUrl && ev.imgUrl !== "[object File]" ? 
+//                     <img 
+//                     className="h-90 w-70 object-cover rounded-l-lg"
+//                     alt={ev.eventName} src={ev.imgUrl}/> :
+//                     <Image 
+//                     className="h-90 w-70 object-cover shadow-lg rounded-l-lg"
+//                     alt={ev.eventName} src={discoball}/>
+//                   }
+//                 </div>
+
+//                 <div className="col-span-2 mt-10 ml-10 text-xl space-y-3">
+//                   <p className={clsx(ev.eventName.length > 15 ? "text-3xl" : "text-4xl","font-bungee text-brand-pink text-shadow-md")}>{ev.eventName}</p>
+//                   <p className="text-lg font-semibold text-shadow-md">
+//                     {ev.description.length > 100 ? (
+//                       <>
+//                         {getFirstSentence(ev.description)}
+//                         <button
+//                           onClick={() => openModal(ev)}
+//                           className="hover:text-brand-pink underline ml-1 text-sm"
+//                         >
+//                           Show more
+//                         </button>
+//                       </>
+//                     ) : (
+//                       ev.description
+//                     )}
+//                   </p>
+//                   <p className={clsx(ev.location.length > 20 ? "text-lg" : "text-xl","flex")}><FaLocationDot className="mt-1 mr-2"/> {ev.location}</p>
+
+
+
+//                   <div className="flex">
+//                   <p>
+//                    {ev.date.toLocaleDateString("en-US", {
+//                       weekday: "short",
+//                       month: "short",
+//                       day: "numeric",
+//                       year: "numeric",
+//                     })} - {ev.date.toLocaleTimeString("en-US", {
+//                       hour: "numeric",
+//                       minute: "2-digit",
+//                     })}{" "}
+//                   </p>
+//                   {ev.endTime &&
+//                   <p>{" "}- {" "}{formatTime(ev.endTime)}</p>}
+//                   </div>
+//                   {ev.age && <p>{ev.age}</p>}
+//                   <p className={clsx(ev.price.length > 5 ? "text-2xl" : "text-4xl","font-bungee text-yellow-500 text-shadow-sm text-shadow-brand-pop pt-2")}>$ {ev.price}</p>
+
+//                 </div>
+
+//                 <div className="flex flex-col justify-between mb-10">
+//                     <DateCard date={ev.date} />
+
+//                   {/* ONLY VISIBLE FOR ADMIN */}
+//                   <div className="space-y-1 pr-10 pl-30">
+//                   {rejectAction && (
+//                     <form action={rejectAction}>
+//                       <input type="hidden" name="id" value={ev.id} />
+//                       <DancingButton title="Reject" color="bg-orange-400/80 border-orange-700 hover:text-orange-700" />
+//                     </form>
+//                   )}
+
+//                   {openPopupModal &&
+//                     <DancingButton
+//                       onclick={() => openPopupModal(ev)}
+//                       title="Delete"
+//                       color="bg-red-500/80 border-red-700 hover:text-red-700"
+//                     />
+//                   }
+
+//                   {approveAction && (
+//                     <form action={approveAction}>
+//                       <input type="hidden" name="id" value={ev.id} />
+//                       <DancingButton title="Approve" color="bg-green-400/80 border-green-600 hover:text-green-600" />
+//                     </form>
+//                   )}
+
+//                   {openEditModal &&
+//                     <DancingButton
+//                       onclick={() => openEditModal(ev)}
+//                       title="Edit"
+//                       color="bg-blue-700/80 border-blue-800 hover:text-blue-900"
+//                     />
+//                   }
+//                 </div>
+//                  {/* EVENT LINKS FRONT PAGE */}
+// <div className="flex justify-end gap-2 mt-3 mr-8">
+//   {ev.ticketLink && !openEditModal && (
+//     <OutDancingLink
+//       link={ev.ticketLink}
+//       title="Tickets"
+//       target="_blank"
+//       extraClassName="flex-0 bg-brand-pop px-2 md:px-6 py-2 text-xs md:text-sm text-white hover:text-brand-pop hover:bg-white duration-[400ms] rounded-lg border-2 border-pink-600"
+//     />
+//   )}
+//   {ev.eventLink && !openEditModal && (
+//     <OutDancingLink
+//       link={ev.eventLink}
+//       title="Info"
+//       target="_blank"
+//       extraClassName="flex-0 bg-brand-pink px-2 md:px-6 py-2 text-xs md:text-sm text-white hover:text-brand-pink hover:bg-white duration-[400ms] rounded-lg border-2 border-pink-900"
+//     />
+//   )}
+// </div>
+// </div>
+                
+//               </div>
+//             </AnimateOnScroll>
+//           </li>
+<li key={ev.id}>
             <AnimateOnScroll customVariants={slideInUpSoft}>
-              <div className="grid grid-row-2 grid-cols-4 w-full bg-white/80 text-brand-base/80 rounded-lg shadow-xl">
-                <div>
+              <div className="md:grid md:grid-row-2 md:grid-cols-4 m-5 md:m-0 md:w-full bg-white/80 text-brand-base/80 rounded-lg shadow-xl">
+                
+                <div className="flex justify-between w-full border-b-4 md:border-none border-brand-pop bg-white/80 md:bg-none rounded-t-lg md:rounded-l-lg">
+                  {/* Mobile DateCard */}
+                  <div className="md:hidden mx-auto mt-5">
+                    <DateCard date={ev.date} />
+                  </div>
                   {ev.imgUrl && ev.imgUrl !== "[object File]" ? 
                     <img 
-                    className="h-90 w-70 object-cover rounded-l-lg"
+                    className="h-60 md:h-90 w-1/2 md:w-70 object-cover md:mx-auto md:rounded-tr-none rounded-r-lg md:rounded-l-lg"
                     alt={ev.eventName} src={ev.imgUrl}/> :
                     <Image 
-                    className="h-90 w-70 object-cover shadow-lg rounded-l-lg"
+                    className="h-60 md:h-90 w-1/2 md:w-70 object-cover md:mx-auto shadow-lg rounded-tr-lg md:rounded-tr-none md:rounded-l-lg"
                     alt={ev.eventName} src={discoball}/>
                   }
                 </div>
 
-                <div className="col-span-2 mt-10 ml-10 text-xl space-y-3">
-                  <p className={clsx(ev.eventName.length > 15 ? "text-3xl" : "text-4xl","font-bungee text-brand-pink text-shadow-md")}>{ev.eventName}</p>
-                  <p className="text-lg font-semibold text-shadow-md">
+                <div className="col-span-2 p-8 md:p-0 md:mt-10 md:ml-10 text-xl space-y-3">
+                  <p className={clsx(ev.eventName.length > 15 ? "text-2xl md:text-3xl" : "text-2xl md:text-4xl","font-bungee text-brand-pink text-shadow-md")}>{ev.eventName}</p>
+                  <p className="text-sm md:text-lg font-semibold text-shadow-md">
                     {ev.description.length > 100 ? (
                       <>
                         {getFirstSentence(ev.description)}
@@ -97,11 +216,11 @@ function formatTime(time: string) {
                       ev.description
                     )}
                   </p>
-                  <p className={clsx(ev.location.length > 20 ? "text-lg" : "text-xl","flex")}><FaLocationDot className="mt-1 mr-2"/> {ev.location}</p>
+                  <p className={clsx(ev.location.length > 20 ? "text-base font-medium md:text-lg" : "text-base md:text-xl","flex")}><FaLocationDot className="mt-1 mr-2"/> {ev.location}</p>
 
 
 
-                  <div className="flex">
+                  <div className="flex text-base">
                   <p>
                    {ev.date.toLocaleDateString("en-US", {
                       weekday: "short",
@@ -116,14 +235,15 @@ function formatTime(time: string) {
                   {ev.endTime &&
                   <p>{" "}- {" "}{formatTime(ev.endTime)}</p>}
                   </div>
-                  {ev.age && <p>{ev.age}</p>}
-                  <p className={clsx(ev.price.length > 5 ? "text-2xl" : "text-4xl","font-bungee text-yellow-500 text-shadow-sm text-shadow-brand-pop pt-2")}>$ {ev.price}</p>
+                  {ev.age && <p className="text-lg">{ev.age}</p>}
+                  <p className={clsx(ev.price.length > 5 ? "text-lg md:text-2xl" : "text-3xl md:text-4xl","font-bungee text-yellow-500 text-shadow-sm text-shadow-brand-pop pt-2")}>$ {ev.price}</p>
 
                 </div>
 
                 <div className="flex flex-col justify-between mb-10">
+                  <div className="hidden md:flex">
                     <DateCard date={ev.date} />
-
+                      </div>
                   {/* ONLY VISIBLE FOR ADMIN */}
                   <div className="space-y-1 pr-10 pl-30">
                   {rejectAction && (
@@ -157,13 +277,13 @@ function formatTime(time: string) {
                   }
                 </div>
                  {/* EVENT LINKS FRONT PAGE */}
-<div className="flex justify-end gap-2 mt-3 mr-8">
+<div className="flex justify-center md:justify-end gap-2 mt-3 mr-8 mb-5 md:mb-0">
   {ev.ticketLink && !openEditModal && (
     <OutDancingLink
       link={ev.ticketLink}
       title="Tickets"
       target="_blank"
-      extraClassName="flex-0 bg-brand-pop px-2 md:px-6 py-2 text-xs md:text-sm text-white hover:text-brand-pop hover:bg-white duration-[400ms] rounded-lg border-2 border-pink-600"
+      extraClassName="flex-0 bg-brand-pop px-2 md:px-6 py-2 text-xs md:text-sm text-white hover:text-brand-pop hover:bg-white duration-[400ms] rounded-lg md:rounded-l-lg border-2 border-pink-600"
     />
   )}
   {ev.eventLink && !openEditModal && (
@@ -171,7 +291,7 @@ function formatTime(time: string) {
       link={ev.eventLink}
       title="Info"
       target="_blank"
-      extraClassName="flex-0 bg-brand-pink px-2 md:px-6 py-2 text-xs md:text-sm text-white hover:text-brand-pink hover:bg-white duration-[400ms] rounded-lg border-2 border-pink-900"
+      extraClassName="flex-0 bg-brand-pink px-2 md:px-6 py-2 text-xs md:text-sm text-white hover:text-brand-pink hover:bg-white duration-[400ms] rounded-lg md:rounded-l-lg border-2 border-pink-900"
     />
   )}
 </div>

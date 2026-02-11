@@ -6,7 +6,7 @@ export interface DateCardProps {
 
 export default function DateCard({date}: DateCardProps){
     return (
-        <div className="mt-10 text-center pl-20">
+        <div className="mt-10 text-center md:pl-20">
             <p className="text-5xl font-bungee text-brand-base/60 text-shadow-md">{date.toLocaleDateString("en-US", {
                       month: "short",
                     })}</p>

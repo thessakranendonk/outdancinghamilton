@@ -1,13 +1,10 @@
 'use client'
-
-
 import { Popover, PopoverPanel, PopoverButton, Transition } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import Link from "next/link";
 import Image from "next/image";
 import { Fragment, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import HamburgerIcon from "../ui/icons/HamburgerIcon";
 import { HeaderProps } from "@/types/component-types";
 import logo from "@/public/svg/disco.svg"
@@ -185,7 +182,7 @@ const DesktopNavBar: React.FC<
     setIsClick(false);
   });
   return (
-    <ul className="flex lg:w-7xl justify-between">
+    <ul className="flex md:w-full justify-between">
       <div className="flex">
       {navigationLinks.map((link, i) => {
         return (
@@ -345,7 +342,7 @@ const Header: React.FC<HeaderProps> = ({
   if (!hydrated) return null; // wait until client hydration
 
   return (
-    <header className="fixed flex w-screen h-14 items-center bg-brand-darkest z-40 pb-2 md:pb-2 md:pl-18 border-b-5 border-brand-pop">
+    <header className="fixed flex w-screen justify-between md:justify-normal h-14 items-center bg-brand-darkest z-40 pb-2 md:pb-2 md:pl-18 border-b-5 border-brand-pop">
       <div className="m-0">
       
            {logo ? (
@@ -366,12 +363,12 @@ const Header: React.FC<HeaderProps> = ({
             <>
               <PopoverButton
                 className={clsx(
-                  "flex px-6 mt-2",
+                  "flex justify-end px-6 mt-2",
                   "focus:outline-none focus:ring-1 focus-ring-inset focus:ring-black-100"
                 )}
               >
                 <span className="sr-only">'open-navigation-menu'</span>
-                <HamburgerIcon />
+                <HamburgerIcon/>
               </PopoverButton>
 
               <Transition
@@ -404,7 +401,7 @@ const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* DESKTOP MENU */}
-      <div className="hidden lg:flex mt-3">
+      <div className="hidden lg:flex w-full mt-3">
         <DesktopNavBar
           navigationLinks={navigationLinks}
           textClassName={textClassName}

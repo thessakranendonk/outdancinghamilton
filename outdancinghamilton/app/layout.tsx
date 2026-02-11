@@ -30,7 +30,7 @@ export default function ProjectLayout({ children }: { children: React.ReactNode 
          currentActiveLocation={pathname}
          textClassName="group text-lg transition-all duration-300 ease-in-out font-light mx-8 text-white"
          linkClassName="flex bg-left-bottom lg:text-md"
-         logoClassName="w-26 h-26 align-top mt-5"
+         logoClassName="w-20 md:w-26 md:h-26 align-top mt-5 left-6 md:left-0"
          hoverClassName={clsx(
            "flex hover:font-medium hover:text-brand-pink transition-all duration-500 ease-out"
          )}

@@ -13,7 +13,7 @@ export default function Hero() {
 
   <div
   aria-hidden="true"
-  className="pointer-events-none absolute left-0 top-0 h-1/2 w-12 z-10"
+  className="pointer-events-none absolute left-0 top-0 h-1/2 w-12 md:w-12 z-10"
   style={{
     background:
       `linear-gradient(45deg, #ed5818 25%, transparent 25%), ` +
@@ -27,10 +27,10 @@ export default function Hero() {
 />
 
         {/* Top */}
-        <div className="pl-31">
+        <div className="pl-5 md:pl-31">
           {/* Left side */}
           <AnimateOnScroll customVariants={slideInLeftSlow}>
-        <h1 className="text-8xl font-medium mb-6 tracking-tight leading-tight max-w-lg font-monoton mt-4">
+        <h1 className="text-5xl md:text-8xl font-medium mb-6 tracking-tight leading-tight max-w-lg font-monoton mt-4">
           Out Dancing <br />
           <span className="text-pink-400">Hamilton</span>
         </h1>
@@ -49,11 +49,11 @@ export default function Hero() {
                     }
                   }}
                 >
-        <p className="max-w-md mb-12 text-gray-300 leading-relaxed text-lg font-quicksand">
+        <p className="max-w-md mb-12 text-gray-300 leading-relaxed text-md md:text-lg font-quicksand">
           <b>Out Dancing Hamilton</b> brings together Hamilton’s dance community, celebrating movement, connection, and fun. Dancing keeps you healthy, lifts your mood, and builds the sense of community we all crave.
         </p>
       </AnimateOnScroll>
-        <div className="flex space-x-6 mt-auto text-white/80 text-xl">
+        <div className="flex space-x-6 mt-auto text-white/80 text-md md:text-xl">
           <a href="https://www.instagram.com/outdancinghamilton/?hl=en" target="_blank" aria-label="Instagram" className="flex hover:text-brand-pink transition">
            <p className="pr-2">Follow us on </p><FaInstagram  className="mt-0.5 text-2xl"/>
           </a>
@@ -63,7 +63,7 @@ export default function Hero() {
 
       {/* Right side */}
       
-      <div className="flex-1 bg-brand-base relative pl-20 overflow-hidden">
+      <div className="hidden md:inline-flex flex-1 bg-brand-base relative pl-20 overflow-hidden">
         <AnimatedLines />
        </div>
       </div>
