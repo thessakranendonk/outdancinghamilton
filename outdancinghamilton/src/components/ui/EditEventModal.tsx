@@ -37,7 +37,7 @@ export default function EditEventModal({ event, onClose, onSave, isSaving }: Edi
 console.log("EditEventModal", event)
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-     <div className="bg-white p-6 rounded w-full max-w-lg max-h-[90vh] overflow-y-auto">
+     <div className="bg-white p-6 rounded w-[85%] max-w-lg max-h-[90vh] overflow-y-auto">
         <h2 className="text-4xl text-center text-brand-pop font-[Bungee] font-bold mb-4">Update Event</h2>
         <form onSubmit={handleSubmit} className="space-y-2 text-brand-base">
           <input type="hidden" name="id" value={event.id} />

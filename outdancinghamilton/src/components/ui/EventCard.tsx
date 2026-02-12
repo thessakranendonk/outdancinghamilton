@@ -10,6 +10,8 @@ import { FaLocationDot } from "react-icons/fa6";
 import clsx from "clsx";
 import DancingButton from "./DancingButton";
 import { event } from "@prisma/client";
+import { FaCheck, FaRegEdit } from "react-icons/fa";
+import { MdContactSupport, MdOutlineDelete } from "react-icons/md";
 
 
 function getFirstSentence(text: string) {
@@ -143,18 +145,18 @@ function formatTime(time: string) {
                     <DateCard date={ev.date} />
                       </div>
                   {/* ONLY VISIBLE FOR ADMIN */}
-                  <div className="space-y-1 pr-10 pl-30">
+                  <div className="grid grid-cols-4 md:grid-cols-2 place-items-center gap-2 space-y-1 md:mt-2 px-10 md:pl-8 md:pr-15  lg:px-15 text-xl">
                   {rejectAction && (
                     <form action={rejectAction}>
                       <input type="hidden" name="id" value={ev.id} />
-                      <DancingButton title="Reject" color="bg-orange-400/80 border-orange-700 hover:text-orange-700" />
+                      <DancingButton title={<MdContactSupport />} color="bg-orange-400/80 border-orange-700 hover:text-orange-700" />
                     </form>
                   )}
 
                   {openPopupModal &&
                     <DancingButton
                       onclick={() => openPopupModal(ev)}
-                      title="Delete"
+                      title={<MdOutlineDelete />}
                       color="bg-red-500/80 border-red-700 hover:text-red-700"
                     />
                   }
@@ -162,14 +164,14 @@ function formatTime(time: string) {
                   {approveAction && (
                     <form action={approveAction}>
                       <input type="hidden" name="id" value={ev.id} />
-                      <DancingButton title="Approve" color="bg-green-400/80 border-green-600 hover:text-green-600" />
+                      <DancingButton title={<FaCheck />} color="bg-green-400/80 border-green-600 hover:text-green-600" />
                     </form>
                   )}
 
                   {openEditModal &&
                     <DancingButton
                       onclick={() => openEditModal(ev)}
-                      title="Edit"
+                      title={<FaRegEdit />}
                       color="bg-blue-700/80 border-blue-800 hover:text-blue-900"
                     />
                   }
@@ -203,7 +205,7 @@ function formatTime(time: string) {
       {/* MODAL */}
 {modalEvent && (
   <div className="fixed inset-0 z-50 flex min-h-screen items-center justify-center bg-black/50">
-<div className="bg-white rounded-lg shadow-xl p-5 w-[85%] max-w-[280px] sm:max-w-xs md:max-w-md text-center">
+<div className="bg-white rounded-lg shadow-xl p-5 w-[85%] md:max-w-[280px] sm:max-w-xs md:max-w-md text-center">
       <h2 className="text-2xl font-bold mb-4 text-brand-pink font-[Bungee]">
         {modalEvent.name}
       </h2>
