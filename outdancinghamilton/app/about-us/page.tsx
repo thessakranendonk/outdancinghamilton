@@ -1,13 +1,33 @@
 'use client'
 import AnimateOnScroll from "@/src/components/ui/animations/AnimateOnScroll";
-import { fadeIn, slideInRightSlow, slowFadeIn } from "@/src/lib/animations";
+import { slideInRightSlow, slowFadeIn } from "@/src/lib/animations";
+import { motion, useAnimation } from "framer-motion";
 import Link from "next/link";
+import { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 
 export default function AboutUs() {
+  const controls = useAnimation();
+  const [ref, inView] = useInView({
+    triggerOnce: true, 
+    threshold:0.05
+  });
+
+  useEffect(() => {
+    if (inView) {
+      controls.start('visible');
+    }
+  }, [controls, inView]);
+
     return (
         <div className="my-30 md:flex justify-center mx-auto">
-            <div className="max-w-3xl font-quicksand text-base md:text-lg font-medium px-10">
-             <AnimateOnScroll customVariants={slowFadeIn} extraClassName="space-y-4">
+            <div ref={ref} className="max-w-3xl font-quicksand text-base md:text-lg font-medium px-10">
+             <motion.div
+                   initial="hidden"
+                   animate={controls}
+                   className="space-y-4"
+                   variants={slowFadeIn}
+                 >
             <h1 className="font-bungee text-center text-4xl md:text-5xl text-brand-pink text-shadow-lg my-10">About Us</h1>
                        
             <p>Out Dancing Hamilton is a community-driven list of dance events happening around Hamilton, for both solo dancers and partners. Every event you see here has a confirmed date and is added with care once it’s known.</p>
@@ -25,7 +45,7 @@ export default function AboutUs() {
         </div>
             <p>If you have any questions or would like to contant us, please DM us on <Link href="https://www.instagram.com/outdancinghamilton/?hl=en" target="_blank" className="text-brand-pink hover:text-brand-pop underline underline-offset-2">@outdancinghamilton</Link> or email us at <a href="mailto:info@outdancinghamilton.com" className="text-brand-pink hover:text-brand-pop underline underline-offset-2">info@outdancinghamilton.com</a>
           </p>
-            </AnimateOnScroll>
+            </motion.div>
         
         </div>
         <AnimateOnScroll

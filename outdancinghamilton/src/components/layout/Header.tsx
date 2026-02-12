@@ -364,7 +364,6 @@ const Header: React.FC<HeaderProps> = ({
               <PopoverButton
                 className={clsx(
                   "flex justify-end px-6 mt-2",
-                  "focus:outline-none focus:ring-1 focus-ring-inset focus:ring-black-100"
                 )}
               >
                 <span className="sr-only">'open-navigation-menu'</span>

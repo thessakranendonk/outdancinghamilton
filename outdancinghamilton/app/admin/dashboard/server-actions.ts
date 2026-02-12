@@ -52,7 +52,6 @@ const [year, month, day] = rawDate.split("-").map(Number);
 // Create date at LOCAL noon (safe)
 const safeDate = new Date(year, month - 1, day, 12, 0, 0, 0);
 
-console.log("SAFE:", safeDate.toISOString());
 
   const updatedEvent = {
     eventName: String(data.get("eventName")),

@@ -68,8 +68,6 @@ function formatTime(time: string) {
     minute: "2-digit",
   });
 }
-
-console.log("EVENT", events)
   
     return (
         <div>
@@ -82,7 +80,7 @@ console.log("EVENT", events)
             <AnimateOnScroll customVariants={slideInUpSoft}>
               <div className="md:grid md:grid-row-2 md:grid-cols-4 m-5 lg:m-0 lg:w-full bg-white/80 text-brand-base/80 rounded-lg shadow-xl">
                 
-                <div className="flex justify-between w-full border-b-4 md:border-none border-brand-pop bg-white/80 md:bg-none rounded-t-lg md:rounded-l-lg">
+                <div className="flex justify-between w-full border-b-4 md:border-none border-brand-pop bg-white/90 md:bg-none rounded-t-lg md:rounded-l-lg">
                   {/* Mobile DateCard */}
                   <div className="md:hidden mx-auto mt-5">
                     <DateCard date={ev.date} />
@@ -135,8 +133,9 @@ console.log("EVENT", events)
                   <p>{" "}- {" "}{formatTime(ev.endTime)}</p>}
                   </div>
                   {ev.age && <p className="text-lg md:mb-0 lg:mb-5">{ev.age}</p>}
-                  <p className={clsx(ev.price.length > 5 ? "text-lg lg:text-2xl" : "text-3xl lg:text-4xl","font-bungee text-yellow-500 text-shadow-sm text-shadow-brand-pop pt-1 lg:pt-2")}>$ {ev.price}</p>
-
+                  {(ev.price === "Free" || ev.price === "free") ?  
+                  <p className={clsx(ev.price.length > 5 ? "text-lg lg:text-2xl" : "text-3xl lg:text-4xl","font-bungee text-yellow-500 text-shadow-sm text-shadow-brand-pop pt-1 lg:pt-2")}>Free</p> : 
+                  <p className={clsx(ev.price.length > 5 ? "text-lg lg:text-2xl" : "text-3xl lg:text-4xl","font-bungee text-yellow-500 text-shadow-sm text-shadow-brand-pop pt-1 lg:pt-2")}>$ {ev.price}</p>}
                 </div>
 
                 <div className="flex flex-col justify-between md:mb-5 lg:mb-10">
@@ -176,7 +175,7 @@ console.log("EVENT", events)
                   }
                 </div>
                  {/* EVENT LINKS FRONT PAGE */}
-<div className="flex justify-center md:justify-end gap-2 mt-3 mr-8 mb-5 md:mb-0">
+<div className="flex justify-center md:justify-end gap-2 mt-3 md:mr-8 mb-5 md:mb-0">
   {ev.ticketLink && !openEditModal && (
     <OutDancingLink
       link={ev.ticketLink}
@@ -188,7 +187,7 @@ console.log("EVENT", events)
   {ev.eventLink && !openEditModal && (
     <OutDancingLink
       link={ev.eventLink}
-      title="Info"
+      title="Details"
       target="_blank"
       extraClassName="flex-0 bg-brand-pink px-2 md:px-6 py-2 text-xs md:text-sm text-white hover:text-brand-pink hover:bg-white duration-[400ms] rounded-lg md:rounded-l-lg border-2 border-pink-900"
     />

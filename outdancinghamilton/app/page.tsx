@@ -41,7 +41,7 @@ export default async function Home({ searchParams }: PageProps) {
     where: { status: event_status.APPROVED },
     orderBy: { date: "asc" },
   });
-console.log(events)
+
   // Apply from/to filtering if provided
   const filteredEvents = events.filter(event => isEventInRange(event.date, from, to));
 
