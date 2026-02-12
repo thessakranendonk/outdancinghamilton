@@ -1,7 +1,6 @@
 "use client";
 import { event_status, event } from "@prisma/client";
 import { useState } from "react";
-import { toDatetimeLocal } from "./SubmitEventForm";
 
 interface EditEventModalProps {
   event: event;
@@ -58,38 +57,19 @@ console.log("EditEventModal", event)
             <input name="location" defaultValue={event.location} className={borderClass} />
           </div>
 
-          {/* <div>
-            <label className="block font-medium">Date</label>
-            <input
-              type="datetime-local"
-              name="date"
-              defaultValue={toDatetimeLocal(new Date(event.date))}
-              className={borderClass}
-/>
-          </div> */}
-
           {/* DATE & TIME */}
     <div className="space-y-2">
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
           <label className="block text-sm mb-1">Event Date</label>
-          {/* <input
-            type="date"
-            name="date"
-            onChange={(e) => setDate(e.target.value)}
-            defaultValue={toDatetimeLocal(new Date(event.date))}
-            className={borderClass}
-            required
-          /> */}
-<input
-  type="date"
-  name="date"
-  value={date} 
-  onChange={(e) => setDate(e.target.value)}
-  className={borderClass}
-  required
-/>
-
+        <input
+          type="date"
+          name="date"
+          value={date} 
+          onChange={(e) => setDate(e.target.value)}
+          className={borderClass}
+          required
+        />
         </div>
 
         <div>
