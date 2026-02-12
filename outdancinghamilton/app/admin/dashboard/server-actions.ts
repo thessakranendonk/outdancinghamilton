@@ -46,11 +46,19 @@ export async function updateEvent(data: FormData) {
   const id = Number(data.get("id"));
   if (!id) return;
 
+  const rawDate = data.get("date") as string;
+
+const [year, month, day] = rawDate.split("-").map(Number);
+// Create date at LOCAL noon (safe)
+const safeDate = new Date(year, month - 1, day, 12, 0, 0, 0);
+
+console.log("SAFE:", safeDate.toISOString());
+
   const updatedEvent = {
     eventName: String(data.get("eventName")),
     description: String(data.get("description")),
     location: String(data.get("location")),
-    date: new Date(String(data.get("date"))),
+    date: safeDate,
     startTime: String(data.get("startTime")),
     endTime: String(data.get("endTime")),
     price: String(data.get("price")),

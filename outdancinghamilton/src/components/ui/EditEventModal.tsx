@@ -1,5 +1,6 @@
 "use client";
 import { event_status, event } from "@prisma/client";
+import { useState } from "react";
 import { toDatetimeLocal } from "./SubmitEventForm";
 
 interface EditEventModalProps {
@@ -10,12 +11,24 @@ interface EditEventModalProps {
 }
 
 const borderClass="w-full text-sm border rounded p-2 border-brand-base/30"
+const today = new Date().toISOString().split("T")[0];
+
+const formatDateForInput = (d: Date | string | null | undefined) => {
+  if (!d) return today; // fallback
+  const dateObj = typeof d === "string" ? new Date(d) : d;
+  return dateObj.toISOString().split("T")[0]; // "YYYY-MM-DD"
+};
 
 export default function EditEventModal({ event, onClose, onSave, isSaving }: EditEventModalProps) {
-  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+ const [date, setDate] = useState(formatDateForInput(event.date));
+ const [startTime, setStartTime] = useState(event.startTime ?? "18:00");
+ const [endTime, setEndTime] = useState(event.endTime ?? "21:00");
+  
+ console.log("DATE", date)
+ const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-
+    
     // Wait for the server action to finish
     await onSave(formData);
 
@@ -45,7 +58,7 @@ console.log("EditEventModal", event)
             <input name="location" defaultValue={event.location} className={borderClass} />
           </div>
 
-          <div>
+          {/* <div>
             <label className="block font-medium">Date</label>
             <input
               type="datetime-local"
@@ -53,7 +66,57 @@ console.log("EditEventModal", event)
               defaultValue={toDatetimeLocal(new Date(event.date))}
               className={borderClass}
 />
-          </div>
+          </div> */}
+
+          {/* DATE & TIME */}
+    <div className="space-y-2">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div>
+          <label className="block text-sm mb-1">Event Date</label>
+          {/* <input
+            type="date"
+            name="date"
+            onChange={(e) => setDate(e.target.value)}
+            defaultValue={toDatetimeLocal(new Date(event.date))}
+            className={borderClass}
+            required
+          /> */}
+<input
+  type="date"
+  name="date"
+  value={date} 
+  onChange={(e) => setDate(e.target.value)}
+  className={borderClass}
+  required
+/>
+
+        </div>
+
+        <div>
+          <label className="block text-sm mb-1">Start Time</label>
+          <input
+            type="time"
+            name="startTime"
+            onChange={(e) => setStartTime(e.target.value)}
+            defaultValue={event.startTime}
+            className={borderClass}
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm mb-1">End Time</label>
+          <input
+            type="time"
+            name="endTime"
+            onChange={(e) => setEndTime(e.target.value)}
+            defaultValue={event.endTime}
+            className={borderClass}
+            required
+          />
+        </div>
+      </div>
+    </div>
 
                <select
                 name="age"

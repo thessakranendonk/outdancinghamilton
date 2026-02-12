@@ -13,21 +13,38 @@ export default function Hero() {
 
   <div
   aria-hidden="true"
-  className="pointer-events-none absolute left-0 top-0 h-1/2 w-12 md:w-12 z-10"
+  // className="pointer-events-none absolute bg-12 lg:bg-48 left-0 top-0 h-1/2 w-12 md:w-12 z-10"
+  // style={{
+  //   background:
+  //     `linear-gradient(45deg, #ed5818 25%, transparent 25%), ` +
+  //     `linear-gradient(-45deg, #ed5818 25%, transparent 25%), ` +
+  //     `linear-gradient(45deg, transparent 75%, #ed5818 75%), ` +
+  //     `linear-gradient(-45deg, transparent 75%, #ed5818 75%)`,
+  //   backgroundSize: "48px 48px",
+  //   backgroundPosition: "0 0, 0 24px, 24px -24px, -24px 0",
+  //   backgroundRepeat: "repeat",
+  // }}
+  className="
+    pointer-events-none absolute left-0 top-0 z-10 h-1/2 w-6 md:w-9 lg:w-12
+    [--bg-size:24px] md:[--bg-size:36px] lg:[--bg-size:48px]
+    [--bg-pos:0_0,0_12px,12px_-12px,-12px_0]
+    md:[--bg-pos:0_0,0_18px,18px_-18px,-18px_0]
+    lg:[--bg-pos:0_0,0_24px,24px_-24px,-24px_0]
+  "
   style={{
     background:
-      `linear-gradient(45deg, #ed5818 25%, transparent 25%), ` +
-      `linear-gradient(-45deg, #ed5818 25%, transparent 25%), ` +
-      `linear-gradient(45deg, transparent 75%, #ed5818 75%), ` +
-      `linear-gradient(-45deg, transparent 75%, #ed5818 75%)`,
-    backgroundSize: "48px 48px",
-    backgroundPosition: "0 0, 0 24px, 24px -24px, -24px 0",
+      `linear-gradient(45deg, #ed5818 25%, transparent 25%),
+       linear-gradient(-45deg, #ed5818 25%, transparent 25%),
+       linear-gradient(45deg, transparent 75%, #ed5818 75%),
+       linear-gradient(-45deg, transparent 75%, #ed5818 75%)`,
+    backgroundSize: "var(--bg-size) var(--bg-size)",
+    backgroundPosition: "var(--bg-pos)",
     backgroundRepeat: "repeat",
   }}
 />
 
         {/* Top */}
-        <div className="pl-5 md:pl-15 lg:pl-31">
+        <div className="pl-3 md:pl-15 lg:pl-31">
           {/* Left side */}
           <AnimateOnScroll customVariants={slideInLeftSlow}>
         <h1 className="text-5xl lg:text-8xl font-medium mb-6 tracking-tight leading-tight max-w-lg font-monoton mt-4">

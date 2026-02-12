@@ -69,7 +69,7 @@ function formatTime(time: string) {
   });
 }
 
-console.log(events)
+console.log("EVENT", events)
   
     return (
         <div>
