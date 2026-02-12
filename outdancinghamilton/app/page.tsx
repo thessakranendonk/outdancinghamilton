@@ -14,7 +14,7 @@ type PageProps = {
   }>;
 };
 
-// Convert a Date to YYYY-MM-DD
+// Format a Date to YYYY-MM-DD
 function formatDate(date: Date) {
   const d = new Date(date);
   const year = d.getFullYear();
@@ -23,37 +23,33 @@ function formatDate(date: Date) {
   return `${year}-${month}-${day}`;
 }
 
-// Check if event's date string is within from/to range
+// Check if event is in the optional from/to range
 function isEventInRange(eventDate: Date, from?: string, to?: string) {
-  const eventDay = formatDate(eventDate);
-
-  if (from && eventDay < from) return false;
-  if (to && eventDay > to) return false;
-
+  const day = formatDate(eventDate);
+  if (from && day < from) return false;
+  if (to && day > to) return false;
   return true;
 }
 
 export default async function Home({ searchParams }: PageProps) {
   const params = await searchParams;
-
   const from = params.from;
   const to = params.to;
 
-  // Fetch all approved events (no time filtering)
+  // Fetch approved events directly from Prisma
   const events = await prisma.event.findMany({
     where: { status: event_status.APPROVED },
     orderBy: { date: "asc" },
   });
 
-  // Filter purely by calendar day
-  const filteredEvents = events.filter((event) =>
-    isEventInRange(event.date, from, to)
-  );
+  // Apply from/to filtering if provided
+  const filteredEvents = events.filter(event => isEventInRange(event.date, from, to));
 
   return (
     <div className="flex flex-col min-h-screen font-sans mt-14">
       <Hero />
       <Divider />
+
       <div id="upcoming-events" className="mb-10 md:mb-20">
         <EventFilter from={from} to={to} />
         <EventCard events={filteredEvents} heading="Upcoming Events" />
