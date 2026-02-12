@@ -33,9 +33,9 @@ export default function DocUpload({
 
       <div className="flex justify-center rounded-lg border border-dashed border-brand-base px-6 py-8">
         <div className="text-center">
-          <PhotoIcon className="mx-auto size-12 text-gray-600" />
+          <PhotoIcon className="mx-auto size-12 text-brand-base" />
 
-          <div className="mt-2 flex text-sm text-gray-400">
+          <div className="mt-2 md:flex text-sm text-gray-400">
             <label
               htmlFor={id}
               className="relative cursor-pointer rounded-md font-semibold text-brand-pink hover:text-brand-pop"
@@ -50,7 +50,7 @@ export default function DocUpload({
                 onChange={onChange}
               />
             </label>
-            <p className="pl-1">or drag and drop</p>
+            <p className="md:pl-1">or drag and drop</p>
           </div>
 
           <p className="text-xs text-gray-400">{description}</p>

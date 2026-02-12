@@ -27,10 +27,10 @@ export default function Hero() {
 />
 
         {/* Top */}
-        <div className="pl-5 md:pl-31">
+        <div className="pl-5 md:pl-15 lg:pl-31">
           {/* Left side */}
           <AnimateOnScroll customVariants={slideInLeftSlow}>
-        <h1 className="text-5xl md:text-8xl font-medium mb-6 tracking-tight leading-tight max-w-lg font-monoton mt-4">
+        <h1 className="text-5xl lg:text-8xl font-medium mb-6 tracking-tight leading-tight max-w-lg font-monoton mt-4">
           Out Dancing <br />
           <span className="text-pink-400">Hamilton</span>
         </h1>
@@ -63,7 +63,7 @@ export default function Hero() {
 
       {/* Right side */}
       
-      <div className="hidden md:inline-flex flex-1 bg-brand-base relative pl-20 overflow-hidden">
+      <div className="hidden md:inline-flex flex-1  bg-brand-base relative lg:pl-20 md:pr-10 lg:pr-0 overflow-hidden">
         <AnimatedLines />
        </div>
       </div>

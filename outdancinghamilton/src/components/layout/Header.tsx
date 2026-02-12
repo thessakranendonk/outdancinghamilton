@@ -51,7 +51,7 @@ const LogoLink: React.FC<
       <Link
         href="/"
         className={clsx(
-          "flex lg:inline-block relative",
+          "flex lg:inline-block relative  md:ml-3 lg:ml-18",
           "focus:outline-none focus-visible:ring focus-visible:ring-black/20 focus-visible:border-transparent",
           logoClassName
         )}
@@ -136,7 +136,7 @@ const MenuLinks: React.FC<
                     : linkClassName,
                   hoverClassName,
                   textClassName,
-                  "text-center lg:text-left border-b-[1px] font-light py-[0.75rem]",
+                  "text-center lg:text-left border-white/30 border-b-[1px] font-light py-[0.75rem]",
                   "flex flex-col"
                 )}
                 onClick={onLinkClick}
@@ -342,7 +342,7 @@ const Header: React.FC<HeaderProps> = ({
   if (!hydrated) return null; // wait until client hydration
 
   return (
-    <header className="fixed flex w-screen justify-between md:justify-normal h-14 items-center bg-brand-darkest z-40 pb-2 md:pb-2 md:pl-18 border-b-5 border-brand-pop">
+    <header className="fixed flex w-full justify-between lg:justify-normal h-14 items-center bg-brand-darkest z-40 pb-2 md:pb-2 border-b-5 border-brand-pop">
       <div className="m-0">
       
            {logo ? (
@@ -380,7 +380,7 @@ const Header: React.FC<HeaderProps> = ({
                 leaveFrom="opacity-100 translate-y-0"
                 leaveTo="opacity-0 translate-y-1"
               >
-                <PopoverPanel className="absolute left-1/2 z-50 mt-10 w-screen -translate-x-1/2 transform px-4 sm:px-0 lg:max-w-3xl bg-white border-y-[2px] shadow-xl">
+                <PopoverPanel className="absolute left-1/2 z-50 mt-15 w-[85%] -translate-x-1/2 transform px-4 sm:px-0 lg:max-w-3xl bg-brand-darkest border-[1px] rounded-lg shadow-2xl">
                   {({ close }) => (
                     <div>
                       <MenuLinks

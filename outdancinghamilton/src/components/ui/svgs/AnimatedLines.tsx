@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { slowFadeIn } from "@/src/lib/animations";
 import { motion } from "framer-motion";
 
@@ -53,12 +53,25 @@ const AnimatedLines: React.FC = () => {
   const middleRef = useRef<SVGPathElement>(null);
   const innerRef = useRef<SVGPathElement>(null);
   const accentRef = useRef<SVGPathElement>(null);
+  const [viewBox, setViewBox] = useState(`0 160 400 600`);
 
   useEffect(() => {
   const paths = [outerRef.current, middleRef.current, innerRef.current, accentRef.current];
 
   paths.forEach((path, i) => {
     if (!path) return;
+
+    const updateViewBox = () => {
+      const width = window.innerWidth;
+      if (width < 640) setViewBox("0 120 300 450"); // sm
+      else if (width < 770) setViewBox("0 210 400 600"); // md
+      else if (width < 1250) setViewBox("0 200 400 600");
+      else setViewBox("0 160 400 600"); // lg+
+    };
+
+    updateViewBox();
+    window.addEventListener("resize", updateViewBox);
+  
 
     const length = path.getTotalLength();
 
@@ -70,6 +83,8 @@ const AnimatedLines: React.FC = () => {
     path.style.transition = "stroke-dashoffset 1.8s ease-in-out";
     path.style.transitionDelay = `${i * 0.25}s`;
     path.style.strokeDashoffset = "0";
+
+     return () => window.removeEventListener("resize", updateViewBox);
   });
 }, []);
 
@@ -77,9 +92,12 @@ const AnimatedLines: React.FC = () => {
 
   return (
     <svg
-      viewBox={`0 160 ${width} ${height}`}
-      style={{ width: 600, height: 800, background: "#033f2e" }}
+      // viewBox={`0 160 ${width} ${height}`}
+      viewBox={viewBox}
+      // style={{ width: 600, height: 800, background: "#033f2e" }}
       // viewBox={`0 170 600 800`}
+        className="w-64 h-96 sm:w-80 sm:h-[500px] md:w-[400px] md:h-[600px] lg:w-[600px] lg:h-[800px] bg-[#033f2e]"
+
     >
       <defs>
         <clipPath id="clipInner">

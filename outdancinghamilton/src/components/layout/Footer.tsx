@@ -12,14 +12,14 @@ const Footer: React.FC<{ navigationLinks: Array<NavigationLinkProps> }> = ({ nav
     <footer className="flex flex-col md:flex-row md:justify-between items-center bg-brand-darkest text-sm text-white border-t-8 border-brand-pink py-6 mt-12"> 
     <a href="/">
     <AnimateOnScroll customVariants={slideInLeftSlow}>
-    <h2 className="text-3xl md:text-6xl text-center md:text-left font-medium mb-8 md:mb-6 tracking-tight leading-tight max-w-xl font-monoton mt-4 md:pl-20">
+    <h2 className="text-3xl lg:text-6xl text-center md:text-left font-medium mb-8 md:mb-6 tracking-tight leading-tight max-w-xl font-monoton mt-4 md:pl-20">
           Out Dancing <br />
           <span className="text-pink-400">Hamilton</span>
         </h2>
         </AnimateOnScroll>
         </a>
         <AnimateOnScroll customVariants={slowFadeIn}>
-          <ul className="md:pr-50 text-center space-y-4 text-xl font-[quicksand]">
+          <ul className="md:pr-10 lg:pr-50 text-center space-y-4 text-xl font-[quicksand]">
           
           {navigationLinks.map((link, i) => {
         return (

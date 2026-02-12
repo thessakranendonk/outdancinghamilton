@@ -5,10 +5,10 @@ import Link from "next/link";
 
 export default function AboutUs() {
     return (
-        <div className="my-30 flex justify-center mx-auto">
-            <div className="max-w-3xl font-quicksand text-lg font-medium px-10">
-                      <AnimateOnScroll customVariants={slowFadeIn} extraClassName="space-y-4">
-                      <h1 className="font-bungee text-center text-5xl text-brand-pink text-shadow-lg my-10">About Us</h1>
+        <div className="my-30 md:flex justify-center mx-auto">
+            <div className="max-w-3xl font-quicksand text-base md:text-lg font-medium px-10">
+             <AnimateOnScroll customVariants={slowFadeIn} extraClassName="space-y-4">
+            <h1 className="font-bungee text-center text-4xl md:text-5xl text-brand-pink text-shadow-lg my-10">About Us</h1>
                        
             <p>Out Dancing Hamilton is a community-driven list of dance events happening around Hamilton, for both solo dancers and partners. Every event you see here has a confirmed date and is added with care once it’s known.</p>
 
@@ -20,14 +20,16 @@ export default function AboutUs() {
             <p>This site is created and maintained by Rohan Jayasekera (@RohanSJ on Instagram). He genuinely loves going out dancing in Hamilton—something even <Link href="https://www.cbc.ca/news/canada/hamilton/rohan-jayasekera-dancer-1.7089176" target="_blank" className="text-brand-pink hover:text-brand-pop underline underline-offset-2">CBC News</Link> has noticed. He started Out Dancing Hamilton because he needed a resource like this himself, couldn’t find one, and discovered that plenty of other people wanted it too.
 
             Dancing is good for you. It keeps you physically active, supports mental health, and just plain feels good. Rohan’s doctor is very happy about how much he dances… even if they’re a little less thrilled that he’ll do it in dress shoes.</p>
-           
+           <div className='lg:hidden md:col-span-3'>
+        <img className="w-50 h-50 mx-auto md:w-120 md:h-120 md:mt-10 md:mb-15 xl:mt-40 xl:ml-10 object-cover rounded-full shadow-lg border-8 border-brand-pink" alt="Rohan" src="/images/rohan.jpg" />
+        </div>
             <p>If you have any questions or would like to contant us, please DM us on <Link href="https://www.instagram.com/outdancinghamilton/?hl=en" target="_blank" className="text-brand-pink hover:text-brand-pop underline underline-offset-2">@outdancinghamilton</Link> or email us at <a href="mailto:info@outdancinghamilton.com" className="text-brand-pink hover:text-brand-pop underline underline-offset-2">info@outdancinghamilton.com</a>
-</p>
+          </p>
             </AnimateOnScroll>
         
         </div>
         <AnimateOnScroll
-          extraClassName='md:col-span-3'
+          extraClassName='hidden lg:inline-block md:col-span-3'
                   customVariants={{
                     ...slideInRightSlow,
                     visible: {
@@ -40,7 +42,7 @@ export default function AboutUs() {
                     }
                   }}
                 >
-        <img className="w-120 h-120 mt-25 xl:mt-40 xl:ml-10 object-cover rounded-full shadow-lg border-8 border-brand-pink" alt="Rohan" src="/images/rohan.jpg" />
+        <img className="lg:w-120 lg:h-120 lg:mt-25 xl:mt-40 xl:ml-10 object-cover rounded-full shadow-lg border-8 border-brand-pink" alt="Rohan" src="/images/rohan.jpg" />
         </AnimateOnScroll>
         </div>
     )

@@ -1,5 +1,9 @@
+import { drawWeeklyEventImage } from "@/src/lib/image/drawWeeklyEventImage";
 import { prisma } from "@/src/lib/prisma";
 import nodemailer from "nodemailer";
+
+// route tester: curl -X GET http://localhost:3000/api/weekly-email
+
 
 function getWeekBounds(date = new Date()) {
   const monday = new Date(date);
@@ -38,6 +42,8 @@ export async function GET() {
 
   const orderedDays = ["MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY"];
 
+  const imageBuffer = await drawWeeklyEventImage(events);
+
   const htmlBody = `
     <p>HAMILTON DANCE EVENTS THIS WEEK</p>
     ${orderedDays
@@ -60,6 +66,13 @@ export async function GET() {
     to: process.env.SMTP_USER,
     subject: `Hamilton Dance Events – Week of ${monday.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`,
     html: htmlBody,
+     attachments: [
+      {
+        filename: "weekly-events.png",
+        content: imageBuffer,
+        contentType: "image/png",
+      },
+    ],
   });
 
   console.log(`Sent weekly events email with ${events.length} events`);
