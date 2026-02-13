@@ -68,10 +68,14 @@ export async function drawTodaysEventImage(events: {
   location: string;
 }[]) {
   registerFont(
-  path.join(process.cwd(), "fonts/Arial.ttf"),
+  path.join(process.cwd(), "src/lib/fonts/Arial.ttf"),
   { family: "Arial" }
 );
 
+registerFont(
+  path.join(process.cwd(), "src/lib/fonts/ARIALBD.ttf"),
+  { family: "Arial", weight: "bold" }
+);
 
   const width = 1080;
   const height = 1920;
@@ -94,7 +98,7 @@ export async function drawTodaysEventImage(events: {
   ctx.font = "bold 65px Arial";
   const headerText = `TODAY (${dayName.toUpperCase()})`;
 
-  let y = 520;
+  let y = 530;
   const headerBottomY = wrapText(ctx, headerText, width / 2, y, 900, 78);
   y = headerBottomY + 150; // space after header
 
