@@ -1,12 +1,8 @@
 import { createCanvas, loadImage } from "canvas";
 import type { CanvasRenderingContext2D } from "canvas";
 import path from "path";
-import { registerFonts } from "@/app/api/fonts/registerFonts"; 
 
 export const runtime = "nodejs";
-
-// Register fonts BEFORE creating canvas
-registerFonts();
 
 /* ------------------ Wrap Text Helper ------------------ */
 export function wrapText(

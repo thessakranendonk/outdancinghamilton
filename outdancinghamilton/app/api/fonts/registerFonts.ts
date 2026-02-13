@@ -13,18 +13,14 @@ export function registerFonts() {
     const srcPath = path.join(process.cwd(), "public/fonts", font.file);
 
     if (!fs.existsSync(srcPath)) {
-      console.error(`Font file not found: ${srcPath}`);
+      console.error("Font not found:", srcPath);
       continue;
     }
 
-    // Only copy to /tmp if it exists (Vercel serverless)
-    const isWindows = process.platform === "win32";
-    const destPath = isWindows ? srcPath : path.join("/tmp", font.file);
+    const tmpPath = path.join("/tmp", font.file);
+    // Copy to /tmp at runtime — ensures Node-canvas can access it in serverless
+    fs.copyFileSync(srcPath, tmpPath);
 
-    if (!isWindows) {
-      fs.copyFileSync(srcPath, destPath);
-    }
-
-    registerFont(destPath, { family: font.family, weight: font.weight });
+    registerFont(tmpPath, { family: font.family, weight: font.weight });
   }
 }
