@@ -1,6 +1,13 @@
 import { createCanvas, loadImage } from "canvas";
 import type { CanvasRenderingContext2D } from "canvas";
+import { registerFont } from "canvas";
 import path from "path";
+
+registerFont(
+  path.join(process.cwd(), "public/fonts/ARIAL.ttf"),
+  { family: "Arial" }
+);
+
 
 /* ------------------ Wrap Text Helper ------------------ */
 export function wrapText(
@@ -82,7 +89,7 @@ export async function drawTodaysEventImage(events: {
   const today = new Date();
   const dayName = today.toLocaleDateString("en-US", { weekday: "long" });
 
-  ctx.font = "bold 65px sans-serif";
+  ctx.font = "bold 65px Arial";
   const headerText = `TODAY (${dayName.toUpperCase()})`;
 
   let y = 520;
@@ -104,10 +111,10 @@ export async function drawTodaysEventImage(events: {
   for (const event of events) {
     const locationName = event.location.split(",")[0];
 
-    ctx.font = "bold 65px sans-serif";
+    ctx.font = "bold 65px Arial";
     const nameBottomY = wrapText(ctx, event.eventName, width / 2, y, 900, 70);
 
-    ctx.font = "bold 45px sans-serif";
+    ctx.font = "bold 45px Arial";
     wrapText(
       ctx,
       `${formatTimeRange(event.startTime, event.endTime)} @ ${locationName}`,
@@ -121,7 +128,7 @@ export async function drawTodaysEventImage(events: {
   }
 
   /* ------------------ Footer ------------------ */
-  ctx.font = "bold 60px sans-serif";
+  ctx.font = "bold 60px Arial";
   const footerText = "Details on our website:";
   const footerY = height - 250;
 
