@@ -3,11 +3,7 @@ import type { CanvasRenderingContext2D } from "canvas";
 import { registerFont } from "canvas";
 import path from "path";
 
-registerFont(
-  path.join(process.cwd(), "public/fonts/Arial.ttf"),
-  { family: "Arial" }
-);
-
+export const runtime = "nodejs";
 
 /* ------------------ Wrap Text Helper ------------------ */
 export function wrapText(
@@ -71,6 +67,12 @@ export async function drawTodaysEventImage(events: {
   endTime: string;
   location: string;
 }[]) {
+  registerFont(
+  path.join(process.cwd(), "public/fonts/Arial.ttf"),
+  { family: "Arial" }
+);
+
+
   const width = 1080;
   const height = 1920;
   const canvas = createCanvas(width, height);
