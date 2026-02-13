@@ -1,6 +1,5 @@
 import { createCanvas, loadImage } from "canvas";
 import type { CanvasRenderingContext2D } from "canvas";
-import { registerFont } from "canvas";
 import path from "path";
 
 export const runtime = "nodejs";
@@ -67,16 +66,6 @@ export async function drawTodaysEventImage(events: {
   endTime: string;
   location: string;
 }[]) {
-  registerFont(
-  path.join(process.cwd(), "src/lib/fonts/Arial.ttf"),
-  { family: "Arial" }
-);
-
-registerFont(
-  path.join(process.cwd(), "src/lib/fonts/ARIALBD.ttf"),
-  { family: "Arial", weight: "bold" }
-);
-
   const width = 1080;
   const height = 1920;
   const canvas = createCanvas(width, height);
