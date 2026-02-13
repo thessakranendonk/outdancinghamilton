@@ -1,15 +1,30 @@
-// app/api/fonts/registerFonts.ts
+// app/lib/registerFonts.ts
+import fs from "fs";
 import path from "path";
 import { registerFont } from "canvas";
-import fs from "fs";
 
 export function registerFonts() {
-  const boldPath = path.join(process.cwd(), "src/lib/fonts/ARIALBD.ttf");
-  const regularPath = path.join(process.cwd(), "src/lib/fonts/Arial.ttf");
+  const fonts = [
+    { file: "Arial.ttf", family: "Arial", weight: "normal" },
+    { file: "ARIALBD.ttf", family: "Arial", weight: "bold" },
+  ];
 
-  console.log("Bold font exists?", fs.existsSync(boldPath));
-  console.log("Regular font exists?", fs.existsSync(regularPath));
+  for (const font of fonts) {
+    const srcPath = path.join(process.cwd(), "public/fonts", font.file);
 
-  registerFont(regularPath, { family: "Arial", weight: "normal" });
-  registerFont(boldPath, { family: "Arial", weight: "bold" });
+    if (!fs.existsSync(srcPath)) {
+      console.error(`Font file not found: ${srcPath}`);
+      continue;
+    }
+
+    // Only copy to /tmp if it exists (Vercel serverless)
+    const isWindows = process.platform === "win32";
+    const destPath = isWindows ? srcPath : path.join("/tmp", font.file);
+
+    if (!isWindows) {
+      fs.copyFileSync(srcPath, destPath);
+    }
+
+    registerFont(destPath, { family: font.family, weight: font.weight });
+  }
 }
