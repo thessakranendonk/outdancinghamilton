@@ -1,9 +1,9 @@
 // app/lib/registerFonts.ts
-import fs from "fs";
+import fs from "fs/promises";
 import path from "path";
 import { registerFont } from "canvas";
 
-export function registerFonts() {
+export async function registerFonts() {
   const fonts = [
     { file: "Arial.ttf", family: "Arial", weight: "normal" },
     { file: "ARIALBD.ttf", family: "Arial", weight: "bold" },
@@ -12,15 +12,15 @@ export function registerFonts() {
   for (const font of fonts) {
     const srcPath = path.join(process.cwd(), "public/fonts", font.file);
 
-    if (!fs.existsSync(srcPath)) {
-      console.error("Font not found:", srcPath);
-      continue;
+    try {
+      const buffer = await fs.readFile(srcPath);
+      const tmpPath = path.join("/tmp", font.file); // serverless-safe
+      await fs.writeFile(tmpPath, buffer);
+
+      registerFont(tmpPath, { family: font.family, weight: font.weight });
+      console.log(`Registered font: ${font.family} (${font.weight})`);
+    } catch (err) {
+      console.error(`Failed to register font ${font.file}:`, err);
     }
-
-    const tmpPath = path.join("/tmp", font.file);
-    // Copy to /tmp at runtime — ensures Node-canvas can access it in serverless
-    fs.copyFileSync(srcPath, tmpPath);
-
-    registerFont(tmpPath, { family: font.family, weight: font.weight });
   }
 }
