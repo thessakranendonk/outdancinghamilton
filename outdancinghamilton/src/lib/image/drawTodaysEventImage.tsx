@@ -4,7 +4,7 @@ import { registerFont } from "canvas";
 import path from "path";
 
 registerFont(
-  path.join(process.cwd(), "public/fonts/ARIAL.ttf"),
+  path.join(process.cwd(), "public/fonts/Arial.ttf"),
   { family: "Arial" }
 );
 
