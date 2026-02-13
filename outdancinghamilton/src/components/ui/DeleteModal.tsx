@@ -20,7 +20,7 @@ export default function DeleteModal({ event, message, onClose, eventAction, even
 
     return (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-              <div className="bg-white p-6 rounded w-full max-w-xl">
+              <div className="bg-white p-6 rounded w-[85%] md:w-full max-w-xl">
                 <h2 className="text-xl text-brand-base font-semibold mb-4">{message}{`"${event.eventName}"?`}</h2>
                 <div className="space-y-4">
                   <input type="hidden" name="id" value={event.id} />

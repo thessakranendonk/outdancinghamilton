@@ -204,14 +204,14 @@ function formatTime(time: string) {
       </ul>
       {/* MODAL */}
 {modalEvent && (
-  <div className="fixed inset-0 z-50 flex min-h-screen items-center justify-center bg-black/50">
+  <div className="fixed inset-0 z-50 flex min-h-screen items-center justify-center bg-black/80">
 <div className="bg-white rounded-lg shadow-xl p-5 w-[85%] md:max-w-[280px] sm:max-w-xs md:max-w-md text-center">
       <h2 className="text-2xl font-bold mb-4 text-brand-pink font-[Bungee]">
         {modalEvent.name}
       </h2>
       <p className="text-md text-brand-base/80 font-quicksand">{modalEvent.description}</p>
-      <div className="w-24 flex justify-center mx-auto">
-      <DancingButton title="Close" onclick={closeModal} color="bg-brand-pop px-2 md:px-6 py-2 mt-5 text-xs md:text-sm text-white hover:text-brand-pop hover:bg-white duration-[400ms] rounded-lg border-2 border-pink-600" />
+      <div className="w-fit flex justify-center mx-auto">
+      <button onClick={closeModal} className="bg-brand-pop px-2 md:px-6 py-2 mt-5 text-xs md:text-sm text-white hover:text-brand-pop hover:bg-white duration-[400ms] rounded-lg border-2 border-pink-600 text-white text-center p-2 rounded-full border-1 shadow-xl hover:bg-white font-medium">Close</button>
     </div>
     </div>
   </div>

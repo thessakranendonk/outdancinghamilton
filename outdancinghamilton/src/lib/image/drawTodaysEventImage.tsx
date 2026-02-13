@@ -82,7 +82,7 @@ export async function drawTodaysEventImage(events: {
   const today = new Date();
   const dayName = today.toLocaleDateString("en-US", { weekday: "long" });
 
-  ctx.font = "bold 65px Arial";
+  ctx.font = "bold 65px sans-serif";
   const headerText = `TODAY (${dayName.toUpperCase()})`;
 
   let y = 520;
@@ -104,10 +104,10 @@ export async function drawTodaysEventImage(events: {
   for (const event of events) {
     const locationName = event.location.split(",")[0];
 
-    ctx.font = "bold 65px Arial";
+    ctx.font = "bold 65px sans-serif";
     const nameBottomY = wrapText(ctx, event.eventName, width / 2, y, 900, 70);
 
-    ctx.font = "bold 45px Arial";
+    ctx.font = "bold 45px sans-serif";
     wrapText(
       ctx,
       `${formatTimeRange(event.startTime, event.endTime)} @ ${locationName}`,
@@ -121,7 +121,7 @@ export async function drawTodaysEventImage(events: {
   }
 
   /* ------------------ Footer ------------------ */
-  ctx.font = "bold 60px Arial";
+  ctx.font = "bold 60px sans-serif";
   const footerText = "Details on our website:";
   const footerY = height - 250;
 
