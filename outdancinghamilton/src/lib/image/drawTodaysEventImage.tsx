@@ -68,7 +68,7 @@ export async function drawTodaysEventImage(events: {
   location: string;
 }[]) {
   registerFont(
-  path.join(process.cwd(), "public/fonts/Arial.ttf"),
+  path.join(process.cwd(), "fonts/Arial.ttf"),
   { family: "Arial" }
 );
 
