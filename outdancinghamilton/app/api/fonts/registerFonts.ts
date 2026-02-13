@@ -1,12 +1,15 @@
+// app/api/fonts/registerFonts.ts
 import path from "path";
 import { registerFont } from "canvas";
+import fs from "fs";
 
-registerFont(
-  path.join(process.cwd(), "app/api/fonts/Arial-Regular.ttf"),
-  { family: "Arial", weight: "normal" }
-);
+export function registerFonts() {
+  const boldPath = path.join(process.cwd(), "app/api/fonts/ARIALBD.ttf");
+  const regularPath = path.join(process.cwd(), "app/api/fonts/Arial.ttf");
 
-registerFont(
-  path.join(process.cwd(), "app/api/fonts/Arial-Bold.ttf"),
-  { family: "Arial", weight: "bold" }
-);
+  console.log("Bold font exists?", fs.existsSync(boldPath));
+  console.log("Regular font exists?", fs.existsSync(regularPath));
+
+  registerFont(regularPath, { family: "Arial", weight: "normal" });
+  registerFont(boldPath, { family: "Arial", weight: "bold" });
+}
