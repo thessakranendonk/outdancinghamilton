@@ -1,9 +1,12 @@
 import { createCanvas, loadImage } from "canvas";
 import type { CanvasRenderingContext2D } from "canvas";
-import { registerFonts } from "@/app/api/fonts/registerFonts";
 import path from "path";
+import { registerFonts } from "@/app/api/fonts/registerFonts"; 
 
 export const runtime = "nodejs";
+
+// Register fonts BEFORE creating canvas
+registerFonts();
 
 /* ------------------ Wrap Text Helper ------------------ */
 export function wrapText(
@@ -32,7 +35,7 @@ export function wrapText(
   }
 
   ctx.fillText(line, x, currentY);
-  return currentY; // bottom Y of last line
+  return currentY;
 }
 
 /* ------------------ Time Formatting ------------------ */
@@ -67,7 +70,6 @@ export async function drawTodaysEventImage(events: {
   endTime: string;
   location: string;
 }[]) {
-  registerFonts();
   const width = 1080;
   const height = 1920;
   const canvas = createCanvas(width, height);
@@ -91,7 +93,7 @@ export async function drawTodaysEventImage(events: {
 
   let y = 530;
   const headerBottomY = wrapText(ctx, headerText, width / 2, y, 900, 78);
-  y = headerBottomY + 150; // space after header
+  y = headerBottomY + 150;
 
   /* ------------------ Dynamic Spacing ------------------ */
   const footerMargin = 280;
@@ -108,10 +110,10 @@ export async function drawTodaysEventImage(events: {
   for (const event of events) {
     const locationName = event.location.split(",")[0];
 
-    ctx.font = "bold 65px Arial";
+    ctx.font = "bold 65px Arial"; // Event name bold
     const nameBottomY = wrapText(ctx, event.eventName, width / 2, y, 900, 70);
 
-    ctx.font = "bold 45px Arial";
+    ctx.font = "45px Arial"; // Event time + location regular
     wrapText(
       ctx,
       `${formatTimeRange(event.startTime, event.endTime)} @ ${locationName}`,
@@ -121,14 +123,13 @@ export async function drawTodaysEventImage(events: {
       55
     );
 
-    y += spacing; // move to next event block
+    y += spacing;
   }
 
   /* ------------------ Footer ------------------ */
   ctx.font = "bold 60px Arial";
   const footerText = "Details on our website:";
   const footerY = height - 250;
-
   wrapText(ctx, footerText, width / 2, footerY, 1000, 60);
 
   return canvas.toBuffer("image/png");
