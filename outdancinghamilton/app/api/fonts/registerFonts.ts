@@ -1,13 +1,17 @@
 import { registerFont } from "canvas";
 import path from "path";
+import { fileURLToPath } from "url";
 
 let fontsRegistered = false;
 
 export function registerFonts() {
   if (fontsRegistered) return;
 
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+
   registerFont(
-    path.join(process.cwd(), "app/fonts/Arial.ttf"),
+    path.join(__dirname, "../fonts/Arial.ttf"),
     {
       family: "Arial",
       weight: "normal",
@@ -15,7 +19,7 @@ export function registerFonts() {
   );
 
   registerFont(
-    path.join(process.cwd(), "app/fonts/ARIALBD.ttf"),
+    path.join(__dirname, "../fonts/ARIALBD.ttf"),
     {
       family: "Arial",
       weight: "bold",
