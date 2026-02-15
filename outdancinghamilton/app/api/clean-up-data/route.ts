@@ -1,33 +1,22 @@
-// import { prisma } from "@/src/lib/prisma";
-
-// export async function POST() {
-//   try {
-//     const result = await prisma.event.deleteMany({
-//       where: {
-//         date: { lt: new Date() }, // delete past events
-//       },
-//     });
-
-//     return new Response(
-//       JSON.stringify({ deleted: result.count }),
-//       { status: 200, headers: { "Content-Type": "application/json" } }
-//     );
-//   } catch (err) {
-//     console.error("Failed to delete past events:", err);
-//     return new Response(
-//       JSON.stringify({ error: "Failed to delete past events" }),
-//       { status: 500, headers: { "Content-Type": "application/json" } }
-//     );
-//   }
-// }
 import { prisma } from "@/src/lib/prisma";
 
 export async function GET() {
+
   const now = new Date();
 
-  const result = await prisma.event.deleteMany({
-    where: { date: { lt: now } },
-  });
+// Get today's midnight (UTC-safe)
+const todayMidnight = new Date();
+todayMidnight.setUTCHours(0, 0, 0, 0);
+
+const result = await prisma.event.deleteMany({
+  where: {
+    date: { lt: todayMidnight },
+  },
+});
+
+
+
+ 
 
   return new Response(
     JSON.stringify({ deleted: result.count }),
