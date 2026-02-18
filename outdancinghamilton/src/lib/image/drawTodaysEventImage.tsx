@@ -84,7 +84,7 @@ export async function drawTodaysEventImage(events: {
   const today = new Date();
   const dayName = today.toLocaleDateString("en-US", { weekday: "long" });
 
-  ctx.font = "65px Arial";
+  ctx.font = "700 65px Arial";
   const headerText = `TODAY (${dayName.toUpperCase()})`;
 
   let y = 530;
