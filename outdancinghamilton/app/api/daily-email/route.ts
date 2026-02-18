@@ -165,7 +165,7 @@ import ARIAL_REGULAR from "@/app/fonts/Arial.ttf.base64";
 deregisterAllFonts();
 // registerFont(tmpPath, { family: "Arial" });
 // import { registerFont } from "canvas";
-registerFont('./public/fonts/Arial.ttf', {family: 'Arial'});
+registerFont('./public/fonts/Arial.TTF', {family: 'Arial'});
 
 export const runtime = "nodejs";
 
