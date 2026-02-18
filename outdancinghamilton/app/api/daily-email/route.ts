@@ -153,18 +153,19 @@
 import { drawTodaysEventImage } from "@/src/lib/image/drawTodaysEventImage";
 import { prisma } from "@/src/lib/prisma";
 import nodemailer from "nodemailer";
-import { registerFont } from "canvas";
+import { deregisterAllFonts, registerFont } from "canvas";
 import fs from "fs";
 import ARIAL_REGULAR from "@/app/fonts/Arial.ttf.base64";
 
-const tmpPath = "/tmp/Arial.ttf";
+// const tmpPath = "/tmp/Arial.ttf";
 
-if (!fs.existsSync(tmpPath)) {
-  fs.writeFileSync(tmpPath, Buffer.from(ARIAL_REGULAR, "base64"));
-}
-
-registerFont(tmpPath, { family: "Arial" });
+// if (!fs.existsSync(tmpPath)) {
+//   fs.writeFileSync(tmpPath, Buffer.from(ARIAL_REGULAR, "base64"));
+// }
+deregisterAllFonts();
+// registerFont(tmpPath, { family: "Arial" });
 // import { registerFont } from "canvas";
+registerFont('./public/fonts/Arial.ttf', {family: 'Arial'});
 
 export const runtime = "nodejs";
 
