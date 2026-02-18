@@ -6,6 +6,10 @@ const nextConfig: NextConfig = {
       "./public/fonts/*",
       "./public/images/*"
     ],
+    "/app/api/weekly-email/route": [
+      "./public/fonts/*",
+      "./public/images/*"
+    ],
     },
 };
 

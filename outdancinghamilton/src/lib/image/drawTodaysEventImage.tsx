@@ -106,10 +106,10 @@ export async function drawTodaysEventImage(events: {
   for (const event of events) {
     const locationName = event.location.split(",")[0];
 
-    ctx.font = "bold 65px Arial"; // Event name bold
+    ctx.font = "700 65px Arial"; // Event name bold
     const nameBottomY = wrapText(ctx, event.eventName, width / 2, y, 900, 70);
 
-    ctx.font = "45px Arial"; // Event time + location regular
+    ctx.font = "400 45px Arial"; // Event time + location regular
     wrapText(
       ctx,
       `${formatTimeRange(event.startTime, event.endTime)} @ ${locationName}`,
@@ -123,7 +123,7 @@ export async function drawTodaysEventImage(events: {
   }
 
   /* ------------------ Footer ------------------ */
-  ctx.font = "bold 60px Arial";
+  ctx.font = "700 60px Arial";
   const footerText = "Details on our website:";
   const footerY = height - 250;
   wrapText(ctx, footerText, width / 2, footerY, 1000, 60);

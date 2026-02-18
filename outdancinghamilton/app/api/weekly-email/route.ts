@@ -1,6 +1,8 @@
 import { drawWeeklyEventImage } from "@/src/lib/image/drawWeeklyEventImage";
 import { prisma } from "@/src/lib/prisma";
+import { deregisterAllFonts, registerFont } from "canvas";
 import nodemailer from "nodemailer";
+import path from "path";
 
 // route tester: curl -X GET http://localhost:3000/api/weekly-email
 
@@ -17,6 +19,13 @@ function getWeekBounds(date = new Date()) {
 }
 
 export async function GET() {
+      deregisterAllFonts();
+      const fontPath = path.join(process.cwd(), "public/fonts/Arial.TTF");
+      const boldPath = path.join(process.cwd(),"public/fonts/ARIALBD.TTF");
+      registerFont(fontPath, { family: "Arial", weight: "400" });
+      registerFont(boldPath, {family: "Arial", weight: "700",});
+  
+
   const { monday, sunday } = getWeekBounds();
 
   const events = await prisma.event.findMany({
