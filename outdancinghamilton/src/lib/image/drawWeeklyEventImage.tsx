@@ -89,8 +89,8 @@ export async function drawWeeklyEventImage(events: {
   ctx.textAlign = "center";
 
   /* ------------------ Header ------------------ */
-  ctx.font = "bold 65px Arial";
-  let y = 540;
+  ctx.font = "700 65px Arial";
+  let y = 550;
 
   const headerText = `HAMILTON DANCE EVENTS THIS WEEK ${getWeekRange().toUpperCase()}`;
 
@@ -119,7 +119,7 @@ export async function drawWeeklyEventImage(events: {
     ? Math.min(250, Math.max(80, availableHeight / daysWithEvents.length))
     : 0;
 
-  ctx.font = "bold 48px Arial";
+  ctx.font = "700 48px Arial";
 
   for (const day of daysWithEvents) {
     const dayEvents = eventsByDay[day];
@@ -130,7 +130,7 @@ export async function drawWeeklyEventImage(events: {
   }
 
   /* ------------------ Footer ------------------ */
-  ctx.font = "bold 48px Arial";
+  ctx.font = "700 48px Arial";
   const footerText =
     "For details of all events, and up-to-date listings, see the outdancinghamilton.com website (link in bio).";
 

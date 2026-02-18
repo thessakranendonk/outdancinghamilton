@@ -87,7 +87,7 @@ export async function drawTodaysEventImage(events: {
   ctx.font = "700 65px Arial";
   const headerText = `TODAY (${dayName.toUpperCase()})`;
 
-  let y = 530;
+  let y = 550;
   const headerBottomY = wrapText(ctx, headerText, width / 2, y, 900, 78);
   y = headerBottomY + 150;
 

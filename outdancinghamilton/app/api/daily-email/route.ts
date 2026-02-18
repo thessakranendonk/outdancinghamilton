@@ -13,7 +13,7 @@ export async function GET() {
     const fontPath = path.join(process.cwd(), "public/fonts/Arial.TTF");
     const boldPath = path.join(process.cwd(),"public/fonts/ARIALBD.TTF");
     registerFont(fontPath, { family: "Arial", weight: "400" });
-     registerFont(boldPath, {family: "Arial", weight: "700",});
+    registerFont(boldPath, {family: "Arial", weight: "700",});
 
     // Start of today (local)
     const start = new Date();
