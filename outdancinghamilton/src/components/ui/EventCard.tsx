@@ -12,6 +12,7 @@ import DancingButton from "./DancingButton";
 import { event } from "@prisma/client";
 import { FaCheck, FaRegEdit } from "react-icons/fa";
 import { MdContactSupport, MdOutlineDelete } from "react-icons/md";
+import AdminContactModal from "./AdminContactModal";
 
 
 function getFirstSentence(text: string) {
@@ -19,16 +20,17 @@ function getFirstSentence(text: string) {
   const sentenceMatch = text.match(/.*?[.!?](\s|$)/);
   let firstSentence = sentenceMatch ? sentenceMatch[0] : text;
 
-  // Only truncate at the first comma if the sentence is over 100 chars
-  if (firstSentence.length > 80) {
-    const commaIndex = firstSentence.indexOf(",");
-    if (commaIndex !== -1) {
-      return firstSentence.slice(0, commaIndex + 1); // include comma
-    }
-  }
+  // Only truncate at the first comma if the sentence is over 90 chars
+ if (firstSentence.length > 90) {
+  const truncated = firstSentence.slice(0, 90);
+  const lastSpace = truncated.lastIndexOf(" ");
+  return truncated.slice(0, lastSpace) + "...";
+}
 
   return firstSentence;
 }
+
+
 
 export interface EventCardProps {
   events: event[];
@@ -53,6 +55,13 @@ export default function EventCard({
   name: string;
   description: string;
 } | null>(null);
+
+const [contactModal, setContactModal] = useState<{
+  email: string;
+  name: string;
+  eventId: number;
+} | null>(null);
+
 
 const openModal = (ev: { eventName: string; description: string }) =>
   setModalEvent({ name: ev.eventName, description: ev.description });
@@ -134,7 +143,7 @@ function formatTime(time: string) {
                   {ev.endTime &&
                   <p>{" "}- {" "}{formatTime(ev.endTime)}</p>}
                   </div>
-                  {ev.age && <p className="text-lg md:mb-0 lg:mb-5">{ev.age}</p>}
+                  {ev.age && <p className="text-lg md:mb-0 lg:mb-2">{ev.age}</p>}
                   {(ev.price === "Free" || ev.price === "free") ?  
                   <p className={clsx(ev.price.length > 5 ? "text-lg lg:text-2xl" : "text-3xl lg:text-4xl","font-bungee text-yellow-500 text-shadow-sm text-shadow-brand-pop pt-1 lg:pt-2")}>Free</p> : 
                   <p className={clsx(ev.price.length > 5 ? "text-lg lg:text-2xl" : "text-3xl lg:text-4xl","font-bungee text-yellow-500 text-shadow-sm text-shadow-brand-pop pt-1 lg:pt-2")}>$ {ev.price}</p>}
@@ -147,32 +156,46 @@ function formatTime(time: string) {
                   {/* ONLY VISIBLE FOR ADMIN */}
                   <div className="grid grid-cols-4 md:grid-cols-2 place-items-center gap-2 space-y-1 md:mt-2 px-10 md:pl-8 md:pr-15  lg:px-15 text-xl">
                   {rejectAction && (
-                    <form action={rejectAction}>
+                    // <form action={rejectAction}>
+                    <>
                       <input type="hidden" name="id" value={ev.id} />
-                      <DancingButton title={<MdContactSupport />} color="bg-orange-400/80 border-orange-700 hover:text-orange-700" />
-                    </form>
+                      <DancingButton 
+                      onclick={() =>
+                          setContactModal({
+                            email: ev.email,   // make sure this exists
+                            name: ev.eventName,
+                            eventId: ev.id,
+                          })
+                        }
+                      title={<MdContactSupport className="ml-0.5"/>} 
+                      tooltip="Reject or Contact" 
+                      color="size-18 rounded-full bg-radial from-orange-400 from-20% to-orange-700 hover:from-orange-700 hover:to-orange-400 transition delay-50 duration-300 ease-in-out" />
+                    </>
+                    // </form>
                   )}
 
                   {openPopupModal &&
                     <DancingButton
                       onclick={() => openPopupModal(ev)}
-                      title={<MdOutlineDelete />}
-                      color="bg-red-500/80 border-red-700 hover:text-red-700"
+                      title={<MdOutlineDelete className="ml-0.5" />}
+                      tooltip="Delete"
+                      color="size-18 rounded-full bg-radial from-red-400 from-20% to-red-700 hover:from-red-700 hover:to-red-400 transition delay-50 duration-300 ease-in-out"
                     />
                   }
 
                   {approveAction && (
                     <form action={approveAction}>
                       <input type="hidden" name="id" value={ev.id} />
-                      <DancingButton title={<FaCheck />} color="bg-green-400/80 border-green-600 hover:text-green-600" />
+                      <DancingButton title={<FaCheck className="ml-0.5"/>} tooltip="Approve" color="size-18 rounded-full bg-radial from-green-400 from-20% to-green-700 hover:from-green-600 hover:to-green-400 transition delay-50 duration-300 ease-in-out" />
                     </form>
                   )}
 
                   {openEditModal &&
                     <DancingButton
                       onclick={() => openEditModal(ev)}
-                      title={<FaRegEdit />}
-                      color="bg-blue-700/80 border-blue-800 hover:text-blue-900"
+                      title={<FaRegEdit className="ml-0.75 mb-0.5"/>}
+                      tooltip="Edit"
+                      color="size-18 rounded-full bg-radial from-blue-500 from-40% to-blue-900 hover:from-blue-900 hover:to-blue-500"
                     />
                   }
                 </div>
@@ -202,7 +225,7 @@ function formatTime(time: string) {
           </li>
         ))}
       </ul>
-      {/* MODAL */}
+      {/* MODALS */}
 {modalEvent && (
   <div className="fixed inset-0 z-50 flex min-h-screen items-center justify-center bg-black/80">
 <div className="bg-white rounded-lg shadow-xl p-5 w-[85%] md:max-w-[280px] sm:max-w-xs md:max-w-md text-center">
@@ -216,6 +239,17 @@ function formatTime(time: string) {
     </div>
   </div>
 )}
+
+{contactModal && (
+  <AdminContactModal
+    isOpen={true}
+    onClose={() => setContactModal(null)}
+    participantEmail={contactModal.email}
+    participantName={contactModal.name}
+    eventId={contactModal.eventId}
+  />
+)}
+
 
         </div>
     )

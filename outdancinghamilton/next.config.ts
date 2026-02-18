@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+   outputFileTracingIncludes: {
+      './app/api/daily-email/route': ['./public/fonts/*'],
+    },
 };
 
 export default nextConfig;
