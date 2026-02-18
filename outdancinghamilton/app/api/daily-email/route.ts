@@ -156,23 +156,27 @@ import nodemailer from "nodemailer";
 import { deregisterAllFonts, registerFont } from "canvas";
 import fs from "fs";
 import ARIAL_REGULAR from "@/app/fonts/Arial.ttf.base64";
+import path from "path";
 
 // const tmpPath = "/tmp/Arial.ttf";
 
 // if (!fs.existsSync(tmpPath)) {
 //   fs.writeFileSync(tmpPath, Buffer.from(ARIAL_REGULAR, "base64"));
 // }
-deregisterAllFonts();
+// deregisterAllFonts();
 // registerFont(tmpPath, { family: "Arial" });
 // import { registerFont } from "canvas";
-registerFont('./public/fonts/Arial.TTF', {family: 'Arial'});
+// const fontPath = path.join(process.cwd(), "public/fonts/Arial.TTF");
+
+// registerFont(fontPath, { family: "Arial" });
 
 export const runtime = "nodejs";
 
 export async function GET() {
   try {
-    // Register fonts before any canvas usage
-    // registerFont();
+    deregisterAllFonts();
+    const fontPath = path.join(process.cwd(), "public/fonts/Arial.TTF");
+    registerFont(fontPath, { family: "Arial" });
 
     // Start of today (local)
     const start = new Date();
