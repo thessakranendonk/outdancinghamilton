@@ -45,6 +45,10 @@ export default function AboutUs() {
         </div>
             <p>If you have any questions or would like to contant us, please DM us on <Link href="https://www.instagram.com/outdancinghamilton/?hl=en" target="_blank" className="text-brand-pink hover:text-brand-pop underline underline-offset-2">@outdancinghamilton</Link> or email us at <a href="mailto:info@outdancinghamilton.com" className="text-brand-pink hover:text-brand-pop underline underline-offset-2">info@outdancinghamilton.com</a>
           </p>
+          <p className="text-xs font-light">Website design and development by <a className="text-brand-pink font-medium hover:underline hover:underline-offset-2" href={`mailto:${process.env.THESSA_EMAIL}`}>
+  Thessa Kranendonk.
+</a>
+ </p>
             </motion.div>
         
         </div>
